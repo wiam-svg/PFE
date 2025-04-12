@@ -1,0 +1,22 @@
+/* Style du bouton "Urgent" */
+.urgent-button {
+    background-color: orange; /* Couleur de fond par défaut */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Lorsque le signalement est marqué comme urgent, le bouton devient rouge */
+  .urgent-button.active {
+    background-color: red;
+    color: white;
+  }
+  
+  /* Changer la couleur quand on survole le bouton */
+  .urgent-button:hover {
+    background-color: darkorange;
+  }
+  

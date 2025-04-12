@@ -14,22 +14,19 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            // $table->string('nom');
-            // $table->string('prenom');
-            // $table->string('email')->unique();
-            // $table->string('password');
-            // $table->string('role')->default('user');
-            // $table->string('adresse')->nullable();
-            // $table->string('telephone')->nullable();
             $table->string('nom');
             $table->string('prenom');
+            $table->integer('age');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('adresse')->nullable();
+            $table->string('adresse');
             $table->string('ville');
-            $table->string('telephone')->nullable();
+            $table->string('telephone');
+            $table->string('type');
+            $table->string('nomEntreprise')->nullable();
+            $table->string('ice')->nullable()->unique();//. Identifiant Commun de l’Entreprise
             $table->string('role')->default('user');
-            $table->integer('postal_code');
+            $table->integer('postal_code')->nullable();
             $table->boolean('accept_terms');
             $table->timestamps();
         });

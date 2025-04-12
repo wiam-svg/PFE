@@ -25,16 +25,20 @@ class User extends Authenticatable
     //         // 'password',
     //         // 'adresse',
     //         // 'telephone',
-            
+
     // ];
     protected $fillable = [
-        'nom', 
-        'prenom', 
-        'email', 
-        'password', 
-        'adresse', 
-        'ville', 
-        'telephone', 
+        'nom',
+        'prenom',
+        'age',
+        'email',
+        'password',
+        'adresse',
+        'ville',
+        'telephone',
+        'type',
+        'nomEntreprise',
+        'ice',
         'postal_code',
         'accept_terms',
     ];
@@ -48,7 +52,7 @@ class User extends Authenticatable
 
     protected $hidden = [
         'password',
-        
+
     ];
 
     /**
@@ -61,5 +65,20 @@ class User extends Authenticatable
         return [
             'password' => 'hashed',
         ];
+    }
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
     }
 }
