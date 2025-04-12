@@ -13,16 +13,18 @@ return new class extends Migration
     {
         Schema::create('signalements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->string('titre');
             $table->text('description');
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->enum('statut', ['en attente', 'en cours', 'résolu'])
             ->default('en attente'); 
             $table->string('ville'); 
-            $table->string('adresse')->nullable(); 
+            $table->string('adresse'); 
             $table->string('categorie')->default('Autre');
-            $table->timestamps(); 
+            $table->date('dateCreation');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

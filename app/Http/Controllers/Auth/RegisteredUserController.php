@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule; 
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -33,18 +34,32 @@ class RegisteredUserController extends Controller
         // dd($request->all());
         
                 $request->validate([
-            
+        
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'age' => 'required|integer|min:1|max:120',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
             'adresse' => 'required|string|max:255',
-            'ville'=>'required|string|max:10',
-            'telephone' => 'required|string|max:9999999999',
-            'postal_code'=>'required|integer|max:99999',
-            'accept_terms'=>'required',
+            'ville' => 'required|string|max:100',
+            'telephone' => 'required|string|max:20',
+            'type' => [
+                'required', 
+                Rule::in(['particulier', 'professionnel']) // Utilisation correcte
+            ],
+        'nomEntreprise' => 'required_if:type,professionnel|nullable|string|max:255',
+        'ice' => [
+            'required_if:type,professionnel',
+            'nullable',
+            'string',
+            'size:15',
+            // 'regex:/^[0-9]{15}$/',
+          
+        ],
+    ]);
+
             
-        ]);
+
         // dd($errors);
       
         // $user=User::create(
@@ -54,11 +69,16 @@ class RegisteredUserController extends Controller
         $user=User::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
+            'age'=>$request->age,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'adresse' => $request->adresse,
             'ville'=>$request->ville,
             'telephone' => $request->telephone,
+            'type'=> $request->type,
+            'nomEntreprise'=>$request->nomEntreprise,
+            'ice'=>$request->ice,
+            'role'=>$request->role,
             'postal_code'=>$request->postal_code,
             'accept_terms'=>$request->accept_terms,
 

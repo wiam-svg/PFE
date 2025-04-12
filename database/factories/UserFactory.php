@@ -24,18 +24,20 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'name' => fake()->name(),
-            // 'email' => fake()->unique()->safeEmail(),
-            // 'email_verified_at' => now(),
-            // 'password' => static::$password ??= Hash::make('password'),
-            // 'remember_token' => Str::random(10),
-            'nom' => fake()->lastName,
-            'prenom' => fake()->firstName,
-            'email' => fake()->unique()->safeEmail,
-            'password' => bcrypt('password'),
-            'adresse' => fake()->address,
-            'ville' => fake()->city,
-            'telephone' => fake()->phoneNumber,
+            'nom' => $this->faker->lastName(),
+            'prenom' => $this->faker->firstName(),
+            'age' => $this->faker->numberBetween(18, 60),
+            'email' => $this->faker->unique()->safeEmail(),
+            'password' => bcrypt('password'), 
+            'adresse' => $this->faker->streetAddress(),
+            'ville' => $this->faker->city(),
+            'telephone' => $this->faker->phoneNumber(),
+            'type' => $this->faker->randomElement(['stagiaire', 'entreprise', null]), 
+            'nomEntreprise' => $this->faker->company(),
+            'ice'=>$this->faker->numerify('###############'),
+            'role' =>$this->faker->randomElement(['user','agent_muncipal']),
+            'postal_code' => $this->faker->optional()->numberBetween(10000, 99999),
+            'accept_terms' => true,
             
         ];
     }
