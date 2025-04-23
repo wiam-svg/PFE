@@ -23,7 +23,6 @@ class Signalement extends Model
         'statut',
         'ville',
         'adresse',
-        'categorie',
         'dateCreation',
         'user_id',
         'categorie_id',
@@ -43,18 +42,36 @@ class Signalement extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function agent()
+     {
+    return $this->belongsTo(User::class, 'user_id');
+     }
+  
 
     /**
      * Relation avec la catégorie (un signalement appartient à une catégorie)
      */
-    public function categorieSingelement()
+    public function categorie()
     {
-        return $this->belongsTo(Categorie::class,'categorie_id');
+        return $this->belongsTo(Categorie::class);
     }
     public function votes()
    {
     return $this->hasMany(Vote::class);
     }
+    public function commentaire()
+    {
+        return $this->hasMany(Commentaire::class);
+    }
+    public function notifications()
+    {
+       return $this->hasMany(Notification::class, 'reference_id');
+    }
+    public function interventions()
+    {
+        return $this->hasOne(Intervention::class);
+    }
+
 
 
 }

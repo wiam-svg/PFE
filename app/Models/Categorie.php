@@ -16,8 +16,8 @@ class Categorie extends Model
      * @var array<string, string>
      */
     protected $fillable = [
-        'nom,
-        description',
+        'nom',
+        'description',
     ];
         /**
      * chaque categorie a plusieur signalement

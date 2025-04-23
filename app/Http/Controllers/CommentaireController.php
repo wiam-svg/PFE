@@ -12,9 +12,10 @@ class CommentaireController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Signalement $signalement)
+    public function index(Signalement $signalement )
     {
-        $commentaires = $signalement->commentaires()->latest()->paginate(10);
+        $commentaires =Commentaire::with('user')->where('signalement_id',$signalement->id)->latest()->paginate(10);
+        // dd($commentaire);
         return Inertia::render('Commentaires/Index', [
             'signalement' => $signalement,
             'commentaires' => $commentaires,
@@ -36,16 +37,23 @@ class CommentaireController extends Controller
      */
     public function store(Request $request, Signalement $signalement)
     {
-        $request->validate([
-            'contenu' => 'required|string',
+        $data = $request->validate([
+            'contenu' => 'required|string|max:1000',
         ]);
 
-        $signalement->commentaires()->create([
-            'user_id' => auth()->id(), // Assurez-vous que l'utilisateur est authentifié
-            'contenu' => $request->contenu,
-        ]);
-
-        return redirect()->route('signalements.show', $signalement->id)->with('success', 'Commentaire ajouté avec succès.');
+        // 2) Création du commentaire lié au signalement
+        // $commentaire = $signalement->commentaires()->create([
+        //     'user_id' => auth()->id(),
+        //     'contenu' => $data['contenu'],
+        // ]);
+        $commentaire = new Commentaire();
+        $commentaire->signalement_id = $request->signalement_id;
+        $commentaire->user_id = auth()->id();
+        $commentaire->contenu = $data['contenu'];
+        $commentaire->save(); 
+        // dd($commentaire);
+        // return response()->json($commentaire);
+        
     }
 
     /**
@@ -70,24 +78,40 @@ class CommentaireController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Commentaire $commentaire)
-    {
-        $request->validate([
-            'contenu' => 'required|string',
-        ]);
-
-        $commentaire->update($request->all());
-
-        return redirect()->route('signalements.show', $commentaire->signalement->id)->with('success', 'Commentaire mis à jour avec succès.');
+    public function update(Request $request, $id)
+{
+    $commentaire = Commentaire::findOrFail($id);
+    if (trim($commentaire->contenu) !== trim($request->contenu)) {
+        $commentaire->contenu = $request->contenu;
+        $commentaire->edit = true; // force à true
+        $commentaire->save();
+    
     }
+  
+    return back();
+}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Commentaire $commentaire)
-    {
-        $signalementId = $commentaire->signalement->id;
-        $commentaire->delete();
-        return redirect()->route('signalements.show', $signalementId)->with('success', 'Commentaire supprimé avec succès.');
-    }
+    // public function destroy(Commentaire $commentaire)
+    // {
+    //     $signalementId = $commentaire->signalement->id;
+    //     $commentaire->delete();
+    //     return redirect()->route('signalements.show', $signalementId)->with('success', 'Commentaire supprimé avec succès.');
+    // }
+    public function destroy($id)
+{
+    $commentaire = Commentaire::findOrFail($id);
+
+    // Vérifie que l'utilisateur est bien le propriétaire du commentaire
+    // if ($commentaire->user_id !== auth()->id()) {
+    //     abort(403);
+    // }
+
+    $commentaire->delete();
+
+    return back()->with('success', 'Commentaire supprimé.');
+}
+
 }

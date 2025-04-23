@@ -41,6 +41,9 @@ class User extends Authenticatable
         'ice',
         'postal_code',
         'accept_terms',
+        'cin',
+        'cne',
+        'matricule',
     ];
 
     /**
@@ -81,4 +84,44 @@ class User extends Authenticatable
     {
         return $this->role === $role;
     }
+    // app/Models/User.php
+
+    // public function signalements()
+    // {
+    //     return $this->hasMany(Signalement::class);
+    // }
+    public function signalements()
+    {
+    return $this->hasManyThrough(
+        Signalement::class, // Le modèle final qu’on veut atteindre
+        Intervention::class, // Le modèle intermédiaire
+        'user_id', // Clé étrangère sur interventions (vers users)
+        'id', // Clé primaire sur signalements
+        'id', // Clé primaire sur users
+        'signalement_id' // Clé étrangère sur interventions (vers signalements)
+    );
+    }
+
+
+    public function notifications()
+    {
+       return $this->hasMany(Notification::class);
+    }
+    public function interventions()
+{
+    return $this->hasMany(Intervention::class, 'user_id');
 }
+public function assignedSignalements()
+{
+    return $this->hasManyThrough(
+        Signalement::class,
+        Intervention::class,
+        'user_id', // Foreign key on interventions table
+        'id', // Foreign key on signalements table
+        'id', // Local key on users table
+        'signalement_id' // Local key on interventions table
+    );
+
+
+
+}}

@@ -38,6 +38,9 @@ class UserFactory extends Factory
             'role' =>$this->faker->randomElement(['user','agent_muncipal']),
             'postal_code' => $this->faker->optional()->numberBetween(10000, 99999),
             'accept_terms' => true,
+            'cin' => $this->faker->unique()->regexify('[A-Z]{2}[0-9]{6}'),
+            'cne' => $this->faker->unique()->bothify('CNE#####'),
+            'matricule' => $this->faker->unique()->bothify('MAT#####'),
             
         ];
     }

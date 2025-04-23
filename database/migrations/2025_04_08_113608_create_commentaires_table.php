@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('signalement_id')->constrained()->onDelete('cascade');
             $table->text('contenu');
+            $table->boolean('edit')->default(false);
             $table->timestamps();
         });
     }

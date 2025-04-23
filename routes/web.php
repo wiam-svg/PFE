@@ -1,12 +1,23 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Agent_municipalDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SignalementController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\NotificationController;
 use App\Models\Categorie;
+use App\Models\Intervention;
+use App\Models\Notification;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Application;
+// use Illuminate\Notifications\Notification as NotificationsNotification;
+
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -37,39 +48,106 @@ Route::middleware('auth')->group(function () {
     // Route::post('categories', [CategorieController::class, 'store'])->name('categories');
     // Route::get('create_categories',function(){
     //     return Inertia::render('Categories/create');
-    // });
+    // });yak klna nzido use effecte
+
 
     Route::get('/signalements', [SignalementController::class, 'index'])->name('signalements.index');
     Route::post('signalements/{signalementId}/urgent', [SignalementController::class, 'toggleUrgent']);
 
+    Route::get('/signalements/{id}/edit', [SignalementController::class, 'edit'])->name('signalements.edit');
+    Route::post('/signalements/{signalement}', [SignalementController::class, 'update'])->name('signalements.update');
+    Route::post('/signalements/{id}/delete', [SignalementController::class, 'destroy'])->name('signalements.destroy');  
+    Route::get('/signalement/{id}', [SignalementController::class, 'show'])->name('signalement.show');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+
+    Route::post('/commentaires', [CommentaireController::class, 'store'])->name('commentaires.store');
+    Route::post('/commentaires/{id}/delete', [CommentaireController::class, 'destroy'])->name('commentaires.destroy');
+    Route::post('/commentaires/{id}/update', [CommentaireController::class, 'update'])->name('commentaires.update');
+
+
+
+    // Route::get('/agent-municipal/dashboard', [NotificationController::class, 'index'])->name('agent.dashboard');
+    
 });
 
 
 
 Route::middleware(['auth','role:admin'])->group(function () {
-   
     
-    Route::post('categories', [CategorieController::class, 'store'])->name('categories');
-    Route::get('create_categories',function(){
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])
+    ->name('admin.dashboard');
+
+
+
+
+
+     Route::get('create_categories',function(){
         return Inertia::render('Categories/create');
     });
-
-});
-Route::middleware(['auth','role:tech'])->group(function () {
-   
-    
     Route::post('categories', [CategorieController::class, 'store'])->name('categories');
-    Route::get('create_categories',function(){
-        return Inertia::render('Categories/create');
-    });
+    Route::get('ListCategories', [CategorieController::class, 'index'])->name('listcategories');
+    Route::delete('/categories/{id}', [CategorieController::class, 'destroy'])->name('categories.destroy');
+    Route::get('/categories/{id}/edit', [CategorieController::class, 'edit'])->name('categories.edit');
+    Route::post('/categories/{id}/update', [CategorieController::class, 'update'])->name('categories.update');
+
+
+    Route::get('/admin/users', [RegisteredUserController::class, 'index']);
+    Route::post('/users/{id}/validate', [RegisteredUserController::class, 'validateUser'])->name('users.validate');
+    Route::post('/admin/validate-user/{id}', [RegisteredUserController::class, 'validateUser']);
+    Route::post('/admin/delete-user/{id}', [RegisteredUserController::class, 'destoryUser']);
+//intervention GRUD:
+
+    Route::get('/admin/signalement_nonassigne',[InterventionController::class,'showSignalements']);
+    Route::post('/admin/assign-agent-to-signalement',[InterventionController::class,'assignAgent']);
+
+
+    Route::get('/admin/assignements', [InterventionController::class, 'index'])->name('admin.assignements');
+    Route::delete('/admin/assignements/{id}',[InterventionController::class,'destroy'])->name('admin.delete');
+    Route::get('/admin/assignements/{id}/edit',[InterventionController::class,'edit'])->name('admin.edit');
+    Route::post('/admin/assignements/{id}', [InterventionController::class, 'update']);
+
+
+
+    Route::get('/admin/interventions/terminees', [InterventionController::class, 'interventionsTerminees']);
+    Route::post('/admin/intervention/{id}/valider', [InterventionController::class, 'valider']);
+    Route::post('/admin/intervention/{id}/rejeter', [InterventionController::class, 'rejeter']);
+    Route::get('/admin/intervention/{id}/detail_I_Atermine', [InterventionController::class, 'showDetail_I_Atermine']);
+
+
+    
+
+
+
+
 
 });
-Route::middleware(['auth','role:tech'])->group(function () {
+
+Route::middleware(['auth','role:agent_municipal'])->group(function () {
+   
+    Route::get('/agent/dashboard', [Agent_municipalDashboardController::class, 'dashboard'])
+    ->name('agent.dashboard');
+
+
+
+
+
+
+
+
+
+    Route::get('/agent_municipal/MesSignalements', [SignalementController::class, 'mesSignalements'])->name('signalements.mes');
+    Route::get('/agent/intervention/{id}/editStatut', [InterventionController::class, 'editStatut'])->name('agent.intervention.edit');
+    Route::post('/agent/intervention/{id}', [InterventionController::class, 'updateStatut'])->name('agent.intervention.update');
+    Route::get('/agent/signalement/{id}/details', [SignalementController::class, 'showDetails'])->name('agent.signalement.details');
+
+    
+});
+// Route::middleware(['auth','role:tech'])->group(function () {
    
    
 
-});
+// });
 
 Route::prefix('signalements/{signalement}')->group(function () {
     Route::get('commentaires', [CommentaireController::class, 'index'])->name('signalements.commentaires.index');

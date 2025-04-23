@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorie;
+use App\Models\Commentaire;
+use App\Models\Intervention;
 use App\Models\Signalement;
 use App\Models\Vote;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Container\Attributes\Storage;
+
+// use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage as FacadesStorage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class SignalementController extends Controller
@@ -16,18 +20,36 @@ class SignalementController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index()
+    // {
+
+    //     $signalements = Signalement::with(['commentaire.user','votes' => function ($query) {
+    //         $query->where('user_id', Auth::id());
+    //     }])->get();
+
+    //     return Inertia::render('Signalements/ListSignalements', [
+    //         'signalements' => $signalements,
+    //         'auth' => [
+    //             'user' => Auth::user(),
+    //         ],
+    //     ]);
+    // }
     public function index()
     {
+        $userId = auth()->id();
 
-        $signalements = Signalement::with(['votes' => function ($query) {
-            $query->where('user_id', Auth::id());
-        }])->get();
-    
+        $signalements = Signalement::with(['commentaire.user', 'votes', 'user'])->get()->map(function ($s) use ($userId) {
+            $s->is_owner = $s->user_id === $userId;
+            return $s;
+        });
+
+
+        $comments = Commentaire::with('user')->get();
+
+
         return Inertia::render('Signalements/ListSignalements', [
             'signalements' => $signalements,
-            'auth' => [
-                'user' => Auth::user(),
-            ],
+            'commentes'=>$comments
         ]);
     }
 
@@ -48,18 +70,6 @@ class SignalementController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            // 'titre' => 'required|string|max:255',
-            // 'description' => 'required|string',
-            // // 'image' => 'required|string',
-            // "image" =>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'statut' => 'required|in:en attente,en cours,résolu',
-            // 'ville' => 'required|string',
-            // 'adresse' => 'required|string',
-            // 'categorie' => 'nullable|string',
-            // 'dateCreation' => 'required|date',
-            // 'user_id' => 'required|exists:users,id',
-            // 'categorie_id' => 'required|exists:categories,id',
-
             'titre' => 'required|string|max:255',
             'description' => 'required|string',
             'image' => 'nullable|image|max:2048',
@@ -67,47 +77,47 @@ class SignalementController extends Controller
             'adresse' => 'required|string',
             'categorie_id' => 'required|exists:categories,id',
         ]);
-        // $imagePath = $request->file('image')->store('signalement_images', 'public');
-        // $imageUrl = Storage::url($imagePath);
 
-        
-    if ($request->hasFile('image')) {
-        $validated['image'] = $request->file('image')->store('signalements', 'public');
-    }
-
-    $validated['statut'] = 'en attente';
-    $validated['dateCreation'] = now();
-    $validated['user_id'] = auth()->id();
-
-        Signalement::create($validated);
-
-        // return redirect()->route('signalements.index')->with('success', 'Signalement créé avec succès.');
-        return redirect()->route('dashboard')->with('success', 'Signalement créé avec succès.');
-        if ($categories->isEmpty()) {
-            // Message ou gestion des catégories vides si besoin
-            dd('Aucune catégorie disponible');
+        // Upload de l'image si elle existe
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('signalements_test', 'public');
         }
+
+        // Ajout des champs automatiques
+        $validated['statut'] = 'en attente';
+        $validated['dateCreation'] = now();
+        $validated['user_id'] = auth()->id();
+
+        // Création du signalement
+        Signalement::create($validated);
+        // dd($validated);
+
     
+        // Redirection
+        return redirect()->route('dashboard')->with('success', 'Signalement créé avec succès.');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Signalement $signalement)
     {
+        $signalement->load('commentaires.user', 'votes');
         return Inertia::render('Signalements/Show', [
             'signalement' => $signalement,
         ]);
-       
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Signalement $signalement)
+    public function edit($id)
     {
+        //  Récupérer le signalement avec ses relations
+        $signalement = Signalement::with('votes', 'commentaire')->findOrFail($id);
         $categories = Categorie::all();
-        return Inertia::render('Signalements/Edit', [
+        return Inertia::render('Signalements/EditSignalement', [
             'signalement' => $signalement,
             'categories' => $categories,
         ]);
@@ -116,98 +126,128 @@ class SignalementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Signalement $signalement)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'nullable|string',
-            'statut' => 'required|in:en attente,en cours,résolu',
-            'ville' => 'required|string',
-            'adresse' => 'required|string',
-            'categorie' => 'nullable|string',
-            'dateCreation' => 'required|date',
-            'user_id' => 'required|exists:users,id',
-            'categorie_id' => 'required|exists:categories,id',
+        // dd($request->all());
+        $signalement = Signalement::findOrFail($id);
+        // Vérifie si l'utilisateur est bien le créateur
+        // if ($signalement->user_id !== auth()->id()) {
+        //     abort(403);
+        // }
+
+        // Valide les champs sauf 'statut' (si tu ne veux pas le modifier)
+        $request->validate([
+            'titre' => '|string|max:255',
+            'description' => '|string',
+            'ville' => '|string',
+            'adresse' => '|string',
+            'categorie_id' => '|exists:categories,id',
+            // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $signalement->titre = $request->titre;
+        $signalement->description = $request->description;
+        $signalement->ville = $request->ville;
+        $signalement->adresse = $request->adresse;
+        $signalement->categorie_id = $request->categorie_id;
 
-        $signalement->update($validated);
-
+        // Gestion de l'image si elle a été mise à jour
         if ($request->hasFile('image')) {
-            // Supprimer l'ancienne image (facultatif)
-            Storage::delete(str_replace(Storage::url(''), '', $signalement->image));
-
-            $imagePath = $request->file('image')->store('signalement_images', 'public');
-            $updatedData['image'] = Storage::url($imagePath);
+            if ($signalement->image) {
+                Storage::delete(str_replace('/storage/', '', $signalement->image));
+            }
+            // Supprime l'ancienne image
+            // Enregistre la nouvelle image
+            $imagePath = $request->file('image')->store('signalements', 'public');
+            $signalement->image = $imagePath;
         }
 
-        $signalement->update($updatedData);
 
-        return redirect()->route('signalements.index')->with('success', 'Signalement mis à jour avec succès.');
+        $signalement->update();
+        return redirect()->route('signalements.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Signalement $signalement)
-    {
-         // Supprimer l'image associée
-        Storage::delete(str_replace(Storage::url(''), '', $signalement->image));
-        $signalement->delete();
-        return redirect()->route('signalements.index')->with('success', 'Signalement supprimé avec succès.');
-    
-    }
+
     public function toggleUrgent($signalementId)
     {
         // dd($signalementId);
+
+        $signalement = Signalement::find($signalementId);
+
+        // Vérifier si le signalement existe
+        if (!$signalement) {
+            return response()->json(['message' => 'Signalement not found'], 404);
+        }
+
+        // Récupérer l'utilisateur actuellement authentifié
+        $user = auth()->user();
+
+        // Vérifier si l'utilisateur a déjà voté sur ce signalement (si c'est un vote pour urgent)
+        $vote = Vote::where('user_id', $user->id)->where('signalement_id', $signalementId)->first();
+
+        if ($vote) {
+            // Inverser l'état de l'urgence (type : true pour urgent, false pour non urgent)
+            $vote->type = !$vote->type;  // Si c'est urgent, ça deviendra non urgent et vice versa
+            $vote->update();
+        } else {
+            // Si aucun vote n'existe pour ce signalement, en créer un
+            Vote::create([
+                'user_id' => $user->id,
+                'signalement_id' => $signalementId,
+                'type' => true, // Par défaut, on marque ce signalement comme urgent
+            ]);
+        }
+    }
+
+
+    public function destroy($id)
+    {
+        $signalement = Signalement::find($id);
+        $comments=Commentaire::where('signalement_id',$id)->get();
+        foreach($comments as $comment){
+            $comment->delete();
+        }
+        if ($signalement->image) {
+            Storage::delete(str_replace('/storage/', '', $signalement->image));
+        }
+        $signalement->delete();
+
+    }
+    public function mesSignalements()
+    {
     
-    $signalement = Signalement::find($signalementId);
+        if (Auth::user()->role !== 'agent_municipal') {
+            
+            abort(403, );
+        }
 
-    // Vérifier si le signalement existe
-    if (!$signalement) {
-        return response()->json(['message' => 'Signalement not found'], 404);
+
+        $signalements = Intervention::where('user_id', Auth::id())->with('user','signalement.categorie')->get();
+
+        return Inertia::render('Agent_municipal/MesSignalements', [
+            'signalements' => $signalements,
+        ]);
+    
     }
+    public function validerSolution($id)
+{
+    $signalement = Signalement::findOrFail($id);
+    $signalement->statut = 'résolu';
+    $signalement->save();
 
-    // Récupérer l'utilisateur actuellement authentifié
-    $user = auth()->user();
+    return redirect()->route('admin.signalements')->with('success', 'Signalement résolu.');
+}
+public function showDetails($id)
+{
+    // Récupérer le signalement avec ses détails (y compris les interventions)
+    $signalement = Signalement::with('interventions', 'categorie','user')->findOrFail($id);
 
-    // Vérifier si l'utilisateur a déjà voté sur ce signalement (si c'est un vote pour urgent)
-    $vote = Vote::where('user_id', $user->id)->where('signalement_id', $signalementId)->first();
-
-    if ($vote) {
-        // Inverser l'état de l'urgence (type : true pour urgent, false pour non urgent)
-        $vote->type = !$vote->type;  // Si c'est urgent, ça deviendra non urgent et vice versa
-        $vote->update();
-    } else {
-        // Si aucun vote n'existe pour ce signalement, en créer un
-        Vote::create([
-            'user_id' => $user->id,
-            'signalement_id' => $signalementId,
-            'type' => true, // Par défaut, on marque ce signalement comme urgent
-        ]); 
-    }
-
+    // Retourner la vue Inertia avec les données nécessaires
+    return Inertia::render('Agent_municipal/SignalementDetails', [
+        'signalement' => $signalement,
+    ]);
 }
 
 
 
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
