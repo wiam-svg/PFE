@@ -1,108 +1,11 @@
 
-// import React, { useState } from 'react';
-// import { useForm,usePage, Head } from '@inertiajs/react';
-
-// export default function Create() {
-
-//   const { categories = [] } = usePage().props;
-//   console.log(categories); 
-  
-//   const { data, setData, post, processing, errors } = useForm({
-//     titre: '',
-//     description: '',
-//     image: null,
-//     ville: '',
-//     adresse: '',
-//     categorie_id: '',
-//   });
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log("Données envoyées :", data);
-//     post(route('signalements.create'), {
-//       forceFormData: true,
-//     });
-//   };
-
-//   return (
-//     <>
-//       <Head title="Créer un signalement" />
-//       <h1 className="text-xl font-bold mb-4">Créer un signalement</h1>
-
-//       <form onSubmit={handleSubmit} className="space-y-4">
-//         <input
-//           type="text"
-//           placeholder="Titre"
-//           value={data.titre}
-//           onChange={e => setData('titre', e.target.value)}
-//           className="border p-2 w-full"
-//         />
-//         {errors.titre && <div className="text-red-500">{errors.titre}</div>}
-
-//         <textarea
-//           placeholder="Description"
-//           value={data.description}
-//           onChange={e => setData('description', e.target.value)}
-//           className="border p-2 w-full"
-//         />
-//         {errors.description && <div className="text-red-500">{errors.description}</div>}
-
-//         <input
-//           type="file"
-//           onChange={e => setData('image', e.target.files[0])}
-//           className="border p-2 w-full"
-//         />
-//         {errors.image && <div className="text-red-500">{errors.image}</div>}
-
-//         <input
-//           type="text"
-//           placeholder="Ville"
-//           value={data.ville}
-//           onChange={e => setData('ville', e.target.value)}
-//           className="border p-2 w-full"
-//         />
-//         {errors.ville && <div className="text-red-500">{errors.ville}</div>}
-
-//         <input
-//           type="text"
-//           placeholder="Adresse"
-//           value={data.adresse}
-//           onChange={e => setData('adresse', e.target.value)}
-//           className="border p-2 w-full"
-//         />
-//         {errors.adresse && <div className="text-red-500">{errors.adresse}</div>}
-
-//         <select
-//           value={data.categorie_id}
-//           onChange={e => setData('categorie_id', e.target.value)}
-//           className="border p-2 w-full"
-//         >
-//           <option value="">-- Choisir une catégorie --</option>
-//           {Array.isArray(categories) && categories.map(categorie => (
-//             <option key={categorie.id} value={categorie.id}>
-//               {categorie.nom}
-//             </option>
-//           ))}
-//         </select>
-//         {errors.categorie_id && <div className="text-red-500">{errors.categorie_id}</div>}
-
-//         <button
-//           type="submit"
-//           disabled={processing}
-//           className="bg-blue-600 text-white px-4 py-2 rounded"
-//         >
-//           Créer le signalement
-//         </button>
-//       </form>
-//     </>
-//   );
-// }
-
 
 
 import React, { useState } from 'react';
 import { useForm, usePage, Head } from '@inertiajs/react';
 import { FileText, MapPin, Camera, Tag, AlertCircle } from 'lucide-react';
+import AppLayout from '@/Layouts/AppLayout';
+
 
 export default function Create() {
   const { categories = [] } = usePage().props;
@@ -145,7 +48,8 @@ export default function Create() {
   };
 
   return (
-    <>
+    
+    <AppLayout>
       <Head title="Créer un signalement" />
       
       {/* En-tête avec style rouge */}
@@ -317,6 +221,7 @@ export default function Create() {
           {processing ? 'Envoi en cours...' : 'Créer le signalement'}
         </button>
       </form>
-    </>
+    
+    </AppLayout>
   );
 }

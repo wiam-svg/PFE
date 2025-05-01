@@ -108,6 +108,8 @@ import React, { useState, useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 import { router } from '@inertiajs/react';
 import { Edit, Trash2, Save, X, Plus } from 'lucide-react';
+import AppLayout from '@/Layouts/AppLayout';
+import AdminSidebar from '@/Components/AdminSidebar';
 
 const CategoryTable = () => {
     const { categories } = usePage().props;
@@ -158,6 +160,9 @@ const CategoryTable = () => {
     };
 
     return (
+        <AppLayout>
+             <div className="flex">
+                <AdminSidebar/>
         <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
             <div className="mb-6">
                 <h1 className="text-3xl font-bold text-red-800">Gestion des catégories</h1>
@@ -292,6 +297,8 @@ const CategoryTable = () => {
                 </button>
             </div>
         </div>
+        </div>
+        </AppLayout>
     );
 };
 

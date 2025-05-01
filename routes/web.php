@@ -21,6 +21,13 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+Route::get('/a-propos',function(){
+    return Inertia::render('Accueil/a-propos');
+});
+Route::get('/comment-ca-marche',function(){
+    return Inertia::render('Accueil/comment-ca-marche');
+});
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -36,7 +43,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Route::get('create_signalements', function(){
     //     return Inertia::render('Signalements/createSignalement');
@@ -77,7 +85,6 @@ Route::middleware(['auth','role:admin'])->group(function () {
     
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])
     ->name('admin.dashboard');
-
 
 
 
@@ -128,14 +135,28 @@ Route::middleware(['auth','role:agent_municipal'])->group(function () {
     Route::get('/agent/dashboard', [Agent_municipalDashboardController::class, 'dashboard'])
     ->name('agent.dashboard');
 
+    
+    Route::get('/intervention/{id}/pdf', [InterventionController::class, 'exportPDF']);
 
 
+    Route::get('/agent/interventions/rejetes', [InterventionController::class, 'interventionsrejete'])->name('interventions.rejetes');
+    
+   
+    Route::get('/signalement/{id}', [SignalementController::class, 'SignalementDetails'])
+    ->name('signalement.details');
+  
 
 
+    Route::get('/agent/interventions/terminees', [InterventionController::class, 'getTerminees'])->name('interventions.terminees');
+    Route::get('/agent/intervention/reset/{id}', [InterventionController::class, 'resetIntervention']);
+    // Route::get('/agent/intervention/detail/{id}', [InterventionController::class, 'detailIntervention']);
+    Route::get('/agent/intervention/{id}/detail_I_Atermine_agent', [InterventionController::class, 'Detail_I_Atermine_agent']);
+    Route::get('/agent/intervention/{id}/detail_I_Rejete_agent', [InterventionController::class, 'Detail_I_Rejete_agent']);
+    // Route::get('/agent/intervention/{id}/detail_I_Atermine_agent', [InterventionController::class, 'Detail_I_Rejte_agent']);
+    
 
-
-
-
+    Route::get('/signalements/historique', [InterventionController::class, 'historique'])->name('mon.historique');
+    Route::get('/interventions', [InterventionController::class, 'afficherInterventions'])->name('interventions.index');
     Route::get('/agent_municipal/MesSignalements', [SignalementController::class, 'mesSignalements'])->name('signalements.mes');
     Route::get('/agent/intervention/{id}/editStatut', [InterventionController::class, 'editStatut'])->name('agent.intervention.edit');
     Route::post('/agent/intervention/{id}', [InterventionController::class, 'updateStatut'])->name('agent.intervention.update');

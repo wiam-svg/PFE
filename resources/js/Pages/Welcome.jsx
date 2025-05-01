@@ -1,185 +1,3 @@
-// import { Head, Link } from '@inertiajs/react';
-
-// export default function Welcome({ auth, laravelVersion, phpVersion }) {
-//     const handleImageError = () => {
-//         document.getElementById('screenshot-container')?.classList.add('!hidden');
-//         document.getElementById('docs-card')?.classList.add('!row-span-1');
-//         document.getElementById('docs-card-content')?.classList.add('!flex-row');
-//         document.getElementById('background')?.classList.add('!hidden');
-//     };
-
-//     return (
-//         <>
-//             <Head title="RepareBladi - Ensemble, améliorons notre Maroc" />
-//             <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-//                 <div className="relative flex min-h-screen flex-col items-center justify-center selection:bg-green-600 selection:text-white">
-//                     <div className="relative w-full max-w-7xl px-6">
-//                         {/* En-tête */}
-//                         <header className="flex items-center justify-between py-6">
-//                             <div className="flex items-center gap-4">
-//                                 <img 
-//                                     src="/logo-reparebladi.png" 
-//                                     alt="Logo RepareBladi"
-//                                     className="h-16 w-auto"
-//                                 />
-//                                 <span className="text-2xl font-bold text-green-600">RepareBladi</span>
-//                             </div>
-//                             <nav className="flex gap-4">
-//                                 {auth.user ? (
-//                                     <Link
-//                                         href={route('dashboard')}
-//                                         className="rounded-lg bg-green-600 px-6 py-2 text-white transition hover:bg-green-700"
-//                                     >
-//                                         Tableau de bord
-//                                     </Link>
-//                                 ) : (
-//                                     <>
-//                                         <Link
-//                                             href={route('login')}
-//                                             className="rounded-lg px-6 py-2 text-green-600 ring-1 ring-green-600 transition hover:bg-green-50"
-//                                         >
-//                                             Connexion
-//                                         </Link>
-//                                         <Link
-//                                             href={route('register')}
-//                                             className="rounded-lg bg-green-600 px-6 py-2 text-white transition hover:bg-green-700"
-//                                         >
-//                                             Inscription
-//                                         </Link>
-//                                     </>
-//                                 )}
-//                             </nav>
-//                         </header>
-
-//                         {/* Section Hero */}
-//                         <section className="my-20 grid grid-cols-2 gap-12 py-12">
-//                             <div className="flex flex-col justify-center">
-//                                 <h1 className="mb-8 text-5xl font-bold leading-tight">
-//                                     Transformons notre environnement ensemble !
-//                                 </h1>
-//                                 <p className="mb-8 text-xl text-gray-600">
-//                                     RepareBladi est la plateforme citoyenne qui redonne vie à nos quartiers.
-//                                     Signalez les problèmes, suivez les résolutions et contribuez à un Maroc plus propre.
-//                                 </p>
-//                                 <Link
-//                                     href="/signaler"
-//                                     className="self-start rounded-lg bg-green-600 px-8 py-3 text-lg text-white transition hover:bg-green-700"
-//                                 >
-//                                     Signaler un problème →
-//                                 </Link>
-//                             </div>
-//                             <div className="relative">
-//                                 <img 
-//                                     src="/hero-illustration.png" 
-//                                     alt="Citoyens engagés"
-//                                     className="rounded-xl shadow-xl"
-//                                 />
-//                             </div>
-//                         </section>
-
-//                         {/* Comment ça marche */}
-//                         <section className="my-20 py-12">
-//                             <h2 className="mb-16 text-center text-4xl font-bold">Comment ça marche ?</h2>
-//                             <div className="grid grid-cols-3 gap-8">
-//                                 {[
-//                                     {title: '1. Signalez', text: 'Décrivez le problème avec photos et localisation'},
-//                                     {title: '2. Suivez', text: 'Recevez des updates sur la résolution'},
-//                                     {title: '3. Célébrez', text: 'Voyez votre impact sur la communauté'}
-//                                 ].map((item, index) => (
-//                                     <div key={index} className="rounded-xl bg-white p-8 shadow-lg">
-//                                         <div className="mb-4 h-12 w-12 rounded-full bg-green-100 text-2xl font-bold text-green-600 flex items-center justify-center">
-//                                             {index + 1}
-//                                         </div>
-//                                         <h3 className="mb-4 text-2xl font-semibold">{item.title}</h3>
-//                                         <p className="text-gray-600">{item.text}</p>
-//                                     </div>
-//                                 ))}
-//                             </div>
-//                         </section>
-
-//                         {/* Notre impact */}
-//                         <section className="my-20 bg-green-600 py-16 text-white">
-//                             <div className="text-center">
-//                                 <h2 className="mb-12 text-4xl font-bold">Notre impact au Maroc</h2>
-//                                 <div className="grid grid-cols-4 gap-8">
-//                                     {[
-//                                         {number: '15K+', label: 'Signalements traités'},
-//                                         {number: '120+', label: 'Villes couvertes'},
-//                                         {number: '95%', label: 'Satisfaction utilisateurs'},
-//                                         {number: '2K+', label: 'Partenaires engagés'}
-//                                     ].map((stat, index) => (
-//                                         <div key={index}>
-//                                             <div className="text-5xl font-bold">{stat.number}</div>
-//                                             <div className="text-lg">{stat.label}</div>
-//                                         </div>
-//                                     ))}
-//                                 </div>
-//                             </div>
-//                         </section>
-
-//                         {/* Témoignages */}
-//                         <section className="my-20 py-12">
-//                             <h2 className="mb-16 text-center text-4xl font-bold">Ce que disent nos utilisateurs</h2>
-//                             <div className="grid grid-cols-2 gap-8">
-//                                 {[
-//                                     {
-//                                         text: "Grâce à RepareBladi, notre rue a été refaite en 2 semaines !",
-//                                         author: "Fatima E., Casablanca"
-//                                     },
-//                                     {
-//                                         text: "Enfin une app qui nous permet d'agir concrètement !",
-//                                         author: "Karim T., Marrakech"
-//                                     }
-//                                 ].map((testimonial, index) => (
-//                                     <div key={index} className="rounded-xl bg-white p-8 shadow-lg">
-//                                         <p className="mb-4 text-xl italic">"{testimonial.text}"</p>
-//                                         <div className="font-semibold text-green-600">{testimonial.author}</div>
-//                                     </div>
-//                                 ))}
-//                             </div>
-//                         </section>
-
-//                         {/* Footer */}
-//                         <footer className="border-t py-12">
-//                             <div className="grid grid-cols-4 gap-8">
-//                                 <div>
-//                                     <h3 className="mb-4 text-lg font-bold">RepareBladi</h3>
-//                                     <p className="text-gray-600">Ensemble, améliorons notre Maroc</p>
-//                                 </div>
-//                                 <div>
-//                                     <h4 className="mb-4 font-semibold">Navigation</h4>
-//                                     <ul className="space-y-2">
-//                                         <li><a href="#" className="text-gray-600 hover:text-green-600">Accueil</a></li>
-//                                         <li><a href="#" className="text-gray-600 hover:text-green-600">Blog</a></li>
-//                                         <li><a href="#" className="text-gray-600 hover:text-green-600">Contact</a></li>
-//                                     </ul>
-//                                 </div>
-//                                 <div>
-//                                     <h4 className="mb-4 font-semibold">Légal</h4>
-//                                     <ul className="space-y-2">
-//                                         <li><a href="#" className="text-gray-600 hover:text-green-600">CGU</a></li>
-//                                         <li><a href="#" className="text-gray-600 hover:text-green-600">Vie privée</a></li>
-//                                     </ul>
-//                                 </div>
-//                                 <div>
-//                                     <h4 className="mb-4 font-semibold">Réseaux</h4>
-//                                     <div className="flex gap-4">
-//                                         <a href="#" className="text-gray-600 hover:text-green-600">Facebook</a>
-//                                         <a href="#" className="text-gray-600 hover:text-green-600">Twitter</a>
-//                                         <a href="#" className="text-gray-600 hover:text-green-600">LinkedIn</a>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                             <div className="mt-8 text-center text-gray-600">
-//                                 © 2024 RepareBladi - Tous droits réservés
-//                             </div>
-//                         </footer>
-//                     </div>
-//                 </div>
-//             </div>
-//         </>
-//     );
-// }
 
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
@@ -197,21 +15,21 @@ export default function Welcome() {
             {/* Logo et nom du site */}
             <div className="flex items-center">
               <img src='/storage/img_desing/reparebladi-logo.svg' alt="Logo RepareBladi" className="h-12 w-12 mr-3" />
-              <h1 className="text-2xl font-bold text-red-600">RepareBladi</h1>
+              <h1 className="text-2xl font-bold text-red-700">RepareBladi</h1>
             </div>
             
             {/* Navigation */}
             <nav className="hidden md:flex space-x-8">
-              <Link className="text-gray-700 hover:text-red-500 flex items-center" href="/">
+              <Link className="text-gray-700 hover:text-red-700 flex items-center" href="/">
                 <Home className="mr-1 h-4 w-4" /> Accueil
               </Link>
-              <Link className="text-gray-700 hover:text-red-500 flex items-center" href="/signalements">
+              <Link className="text-gray-700 hover:text-red-700 flex items-center" href="/signalements">
                 <AlertTriangle className="mr-1 h-4 w-4" /> Signalements
               </Link>
-              <Link className="text-gray-700 hover:text-red-500 flex items-center" href="/carte">
+              <Link className="text-gray-700 hover:text-red-700 flex items-center" href="/carte">
                 <Map className="mr-1 h-4 w-4" /> Carte
               </Link>
-              <Link className="text-gray-700 hover:text-red-500 flex items-center" href="/a-propos">
+              <Link className="text-gray-700 hover:text-red-700 flex items-center" href="/a-propos">
                 <Info className="mr-1 h-4 w-4" /> À propos
               </Link>
             </nav>
@@ -220,13 +38,13 @@ export default function Welcome() {
             <div className="flex space-x-3">
               <Link
                 href={route('login')}
-                className="px-4 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50"
+                className="px-4 py-2 border border-red-700 text-red-700 rounded-lg hover:bg-red-50"
               >
                 Se connecter
               </Link>
               <Link
                 href={route('signalements.create')}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex items-center"
+                className="px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-800 flex items-center"
               >
                 <AlertTriangle className="mr-2 h-4 w-4" /> Signaler un problème
               </Link>
@@ -247,7 +65,7 @@ export default function Welcome() {
             <div className="flex space-x-4">
               <Link
                 href={route('register')}
-                className="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600"
+                className="px-6 py-3 bg-red-700 text-white font-semibold rounded-lg hover:bg-red-800"
               >
                 Créer un compte
               </Link>
@@ -278,7 +96,7 @@ export default function Welcome() {
             {/* Étape 1 */}
             <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-300">
               <div className="bg-red-50 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                <AlertTriangle className="text-red-500 h-8 w-8" />
+                <AlertTriangle className="text-red-700 h-8 w-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-800">Signaler</h3>
               <p className="text-gray-600">
@@ -289,7 +107,7 @@ export default function Welcome() {
             {/* Étape 2 */}
             <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-300">
               <div className="bg-red-50 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                <MapPin className="text-red-500 h-8 w-8" />
+                <MapPin className="text-red-700 h-8 w-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-800">Localiser</h3>
               <p className="text-gray-600">
@@ -300,7 +118,7 @@ export default function Welcome() {
             {/* Étape 3 */}
             <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-300">
               <div className="bg-red-50 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                <Bell className="text-red-500 h-8 w-8" />
+                <Bell className="text-red-800 h-8 w-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-800">Traiter</h3>
               <p className="text-gray-600">
@@ -311,7 +129,7 @@ export default function Welcome() {
             {/* Étape 4 */}
             <div className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-300">
               <div className="bg-red-50 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
-                <Check className="text-red-500 h-8 w-8" />
+                <Check className="text-red-800 h-8 w-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-800">Résoudre</h3>
               <p className="text-gray-600">
@@ -323,7 +141,7 @@ export default function Welcome() {
       </section>
 
       {/* Statistiques */}
-      <section className="py-16 bg-red-500 text-white">
+      <section className="py-16 bg-red-700 text-white">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-6">Notre impact au Maroc</h2>
           <p className="text-xl text-center mb-12">
@@ -334,7 +152,7 @@ export default function Welcome() {
             {/* Stat 1 */}
             <div className="text-center bg-white text-gray-800 p-6 rounded-lg shadow-md">
               <div className="flex justify-center mb-4">
-                <AlertTriangle className="text-red-500 h-8 w-8" />
+                <AlertTriangle className="text-red-700 h-8 w-8" />
               </div>
               <p className="text-4xl font-bold mb-2">12,456</p>
               <p className="text-lg">Problèmes signalés</p>
@@ -343,7 +161,7 @@ export default function Welcome() {
             {/* Stat 2 */}
             <div className="text-center bg-white text-gray-800 p-6 rounded-lg shadow-md">
               <div className="flex justify-center mb-4">
-                <Check className="text-red-500 h-8 w-8" />
+                <Check className="text-red-700 h-8 w-8" />
               </div>
               <p className="text-4xl font-bold mb-2">8,721</p>
               <p className="text-lg">Problèmes résolus</p>
@@ -352,7 +170,7 @@ export default function Welcome() {
             {/* Stat 3 */}
             <div className="text-center bg-white text-gray-800 p-6 rounded-lg shadow-md">
               <div className="flex justify-center mb-4">
-                <Users className="text-red-500 h-8 w-8" />
+                <Users className="text-red-700 h-8 w-8" />
               </div>
               <p className="text-4xl font-bold mb-2">5,280</p>
               <p className="text-lg">Utilisateurs actifs</p>
@@ -361,7 +179,7 @@ export default function Welcome() {
             {/* Stat 4 */}
             <div className="text-center bg-white text-gray-800 p-6 rounded-lg shadow-md">
               <div className="flex justify-center mb-4">
-                <Clock className="text-red-500 h-8 w-8" />
+                <Clock className="text-red-700 h-8 w-8" />
               </div>
               <p className="text-4xl font-bold mb-2">72h</p>
               <p className="text-lg">Temps moyen de résolution</p>
@@ -460,7 +278,7 @@ export default function Welcome() {
           </p>
           <Link
             href={route('register')}
-            className="px-8 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors duration-300 flex items-center mx-auto w-fit"
+            className="px-8 py-3 bg-red-700 text-white font-semibold rounded-lg hover:bg-red-800 transition-colors duration-300 flex items-center mx-auto w-fit"
           >
             Créer un compte gratuitement <ChevronRight className="ml-2 h-5 w-5" />
           </Link>
@@ -474,8 +292,8 @@ export default function Welcome() {
             {/* Logo et description */}
             <div>
               <div className="flex items-center mb-4">
-                <img src="/api/placeholder/40/40" alt="Logo RepareBladi" className="h-10 w-10 mr-2" />
-                <h3 className="text-xl font-bold text-red-500">RepareBladi</h3>
+                <img src='/storage/img_desing/reparebladi-logo.svg' alt="Logo RepareBladi" className="h-10 w-10 mr-2" />
+                <h3 className="text-xl font-bold text-red-800">RepareBladi</h3>
               </div>
               <p className="text-gray-600">
                 Une initiative citoyenne pour améliorer notre environnement urbain et la qualité de vie au Maroc.
@@ -498,15 +316,15 @@ export default function Welcome() {
               <h4 className="text-lg font-semibold mb-4 text-gray-800">Contact</h4>
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-center">
-                  <Mail className="mr-2 h-4 w-4 text-red-500" />
+                  <Mail className="mr-2 h-4 w-4 text-red-800" />
                   contact@reparebladi.ma
                 </li>
                 <li className="flex items-center">
-                  <Phone className="mr-2 h-4 w-4 text-red-500" />
-                  +212 5XX-XXXXXX
+                  <Phone className="mr-2 h-4 w-4 text-red-800" />
+                  +212 500-402987
                 </li>
                 <li className="flex items-center">
-                  <MapPin className="mr-2 h-4 w-4 text-red-500" />
+                  <MapPin className="mr-2 h-4 w-4 text-red-800" />
                   123 Avenue Hassan II, Casablanca
                 </li>
               </ul>
@@ -520,9 +338,9 @@ export default function Welcome() {
                 <input
                   type="email"
                   placeholder="Votre email"
-                  className="px-4 py-2 bg-white text-gray-800 border border-gray-300 rounded-l-lg focus:outline-none focus:border-red-500"
+                  className="px-4 py-2 bg-white text-gray-800 border border-red-300 rounded-l-lg focus:outline-none focus:border-red-800"
                 />
-                <button className="px-4 py-2 bg-red-500 text-white rounded-r-lg hover:bg-red-600 transition-colors duration-300">
+                <button className="px-4 py-2 bg-red-700 text-white rounded-r-lg hover:bg-red-800 transition-colors duration-300">
                   S'inscrire
                 </button>
               </div>

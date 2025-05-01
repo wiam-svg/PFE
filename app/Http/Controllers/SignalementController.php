@@ -34,6 +34,7 @@ class SignalementController extends Controller
     //         ],
     //     ]);
     // }
+   
     public function index()
     {
         $userId = auth()->id();
@@ -221,7 +222,9 @@ class SignalementController extends Controller
         }
 
 
-        $signalements = Intervention::where('user_id', Auth::id())->with('user','signalement.categorie')->get();
+        $signalements = Intervention::where('user_id', Auth::id())
+        ->where('resolution_status','en cours')
+        ->with('user','signalement.categorie')->get();
 
         return Inertia::render('Agent_municipal/MesSignalements', [
             'signalements' => $signalements,
@@ -240,12 +243,24 @@ public function showDetails($id)
 {
     // Récupérer le signalement avec ses détails (y compris les interventions)
     $signalement = Signalement::with('interventions', 'categorie','user')->findOrFail($id);
+    // dd($signalement);
 
     // Retourner la vue Inertia avec les données nécessaires
     return Inertia::render('Agent_municipal/SignalementDetails', [
         'signalement' => $signalement,
     ]);
 }
+public function SignalementDetails($id)
+{
+    $signalement = Signalement::with(['commentaire.user', 'votes','interventions','Categorie'])->findOrFail($id);
+    $votesCount = $signalement->votes->count();
+
+    return Inertia::render('Signalements/SignalementDetails', [
+        'signalement' => $signalement,
+        'votesCount' => $votesCount,
+    ]);
+}
+
 
 
 

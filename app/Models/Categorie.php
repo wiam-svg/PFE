@@ -27,4 +27,8 @@ class Categorie extends Model
     {
         return $this->hasMany(Signalement::class);
     }
+    public function interventions()
+    {
+        return $this->hasMany(Intervention::class, 'category_id');
+    }
 }
