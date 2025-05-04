@@ -53,10 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::post('Signalements/createSignalement', [SignalementController::class, 'store'])->name('signalements.store');
     
     
-    // Route::post('categories', [CategorieController::class, 'store'])->name('categories');
-    // Route::get('create_categories',function(){
-    //     return Inertia::render('Categories/create');
-    // });yak klna nzido use effecte
+ 
 
 
     Route::get('/signalements', [SignalementController::class, 'index'])->name('signalements.index');
@@ -66,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/signalements/{signalement}', [SignalementController::class, 'update'])->name('signalements.update');
     Route::post('/signalements/{id}/delete', [SignalementController::class, 'destroy'])->name('signalements.destroy');  
     Route::get('/signalement/{id}', [SignalementController::class, 'show'])->name('signalement.show');
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+   
 
 
     Route::post('/commentaires', [CommentaireController::class, 'store'])->name('commentaires.store');
@@ -75,8 +72,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-    // Route::get('/agent-municipal/dashboard', [NotificationController::class, 'index'])->name('agent.dashboard');
-    
+   
 });
 
 

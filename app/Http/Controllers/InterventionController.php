@@ -43,7 +43,7 @@ class InterventionController extends Controller
 
     public function index()
     {
-        $interventions = Intervention::with(['signalement', 'user'])->get();
+        $interventions = Intervention::with(['signalement.categorie', 'user'])->get();
         return Inertia::render('Admin/Assignements', [
             'interventions' => $interventions
         ]);
@@ -258,7 +258,7 @@ class InterventionController extends Controller
     }
     public function interventionsTerminees()
     {
-        $interventions = Intervention::with('signalement', 'user')
+        $interventions = Intervention::with('signalement.categorie', 'user')
             ->where('resolution_status', 'termine')
             ->where(function ($query) {
                 $query->whereNull('validation_admin')
@@ -311,14 +311,14 @@ class InterventionController extends Controller
         $intervention = Intervention::findOrFail($id);
         $intervention->validation_admin = false;
         $intervention->commentaire_admin = $request->commentaire_admin;
-        $intervention->resolution_status = 'rejetes';
+        $intervention->resolution_status = 'rejetee';
         $intervention->save();
 
         return back()->with('error', 'Intervention rejetée');
     }
     public function showDetail_I_Atermine($id)
     {
-        $intervention = Intervention::with(['signalement', 'user'])->findOrFail($id);
+        $intervention = Intervention::with(['signalement.categorie', 'user'])->findOrFail($id);
         return Inertia::render('Admin/Detail_Interv_Atermine', [
             'signalement' => $intervention->signalement,
             'intervention' => $intervention

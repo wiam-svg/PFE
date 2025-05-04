@@ -86,7 +86,7 @@ import { router } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import AdminSidebar from '@/Components/AdminSidebar';
 import { 
-  Tool, 
+  Wrench , 
   ClipboardCheck, 
   User, 
   MessageSquare, 
@@ -103,7 +103,7 @@ import {
   Image as ImageIcon
 } from 'lucide-react';
 
-export default function DetailIntervention({ signalement, intervention }) {
+export default function Detail_Interv_Atermine({ signalement, intervention }) {
   const [zoomImage, setZoomImage] = useState(null);
   // console.log(signalement);
   console.log(intervention);
@@ -186,7 +186,7 @@ export default function DetailIntervention({ signalement, intervention }) {
               <div className="bg-white rounded-lg shadow-sm overflow-hidden">
                 <div className="bg-blue-600 text-white p-4">
                   <div className="flex items-center">
-                    <Tool size={20} className="mr-2" />
+                    <Wrench size={20} className="mr-2" />
                     <h2 className="text-xl font-semibold">Intervention</h2>
                   </div>
                 </div>

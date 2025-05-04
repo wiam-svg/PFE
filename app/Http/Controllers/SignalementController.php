@@ -39,13 +39,18 @@ class SignalementController extends Controller
     {
         $userId = auth()->id();
 
-        $signalements = Signalement::with(['commentaire.user', 'votes', 'user'])->get()->map(function ($s) use ($userId) {
+        $signalements = Signalement::with(['commentaire.user', 'votes', 'user'])
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ->map(function ($s) use ($userId) {
             $s->is_owner = $s->user_id === $userId;
             return $s;
         });
 
 
-        $comments = Commentaire::with('user')->get();
+        $comments = Commentaire::with('user')
+        ->orderBy('created_at', 'desc')
+        ->get();
 
 
         return Inertia::render('Signalements/ListSignalements', [
@@ -95,7 +100,8 @@ class SignalementController extends Controller
 
     
         // Redirection
-        return redirect()->route('dashboard')->with('success', 'Signalement créé avec succès.');
+        return redirect()->route('signalements.index');
+    
     }
 
 

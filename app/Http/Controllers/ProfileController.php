@@ -42,6 +42,7 @@ class ProfileController extends Controller
         'telephone' => ['required', 'string', 'max:20'],
         'ville' => ['required', 'string', 'max:255'],
     ];
+
 }
 
     /**
@@ -50,10 +51,10 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
 
-        // dd($request->user());
-        $user = $request->user();
         $validatedData = $request->validated();
+        $user = $request->user();
         $user->fill($validatedData);
+       
         // $user->fill($request->validated());
         // $request->user()->fill($request->validated());
        
@@ -61,11 +62,17 @@ class ProfileController extends Controller
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
+        
+
         // $request->user()->save();
         $user->save();
         // dd($user->getChanges()); 
+        // dd($user);
 
-        return Redirect::route('profile.edit');
+
+        return Redirect::route('profile.edit')->with('success', 'Profil mis à jour avec succès.');
+    
+      
     }
 
     /**
