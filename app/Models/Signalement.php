@@ -26,6 +26,8 @@ class Signalement extends Model
         'dateCreation',
         'user_id',
         'categorie_id',
+        'latitude',   
+        'longitude',  
     ];
     protected $casts = [
         'dateCreation' => 'date',

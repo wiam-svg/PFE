@@ -161,23 +161,34 @@ class InterventionController extends Controller
         $signalement->statut = 'en cours';
         $signalement->save();
 
-        // $agent = User::find($request->agent_id);
-        // $agent->notify(new SignalementAssigned($signalement));
-        //  // Créer la notification
-        // $agent = User::find($request->agent_id); // Récupère l'agent
-        // $notification = new Notification([
-        //     'user_id' => $agent->id, // Utilisateur qui va recevoir la notification
-        //     'type' => 'App\Notifications\SignalementAssigned',
-        //     'titre' => 'Vous avez été affecté à un signalement',
-        //     'message' => 'Vous devez intervenir sur le signalement "' . $signalement->description . '"',
-        //     'lien' => route('signalement.show', ['id' => $signalement->id]), // lien vers le signalement
-        //     'reference_id' => $signalement->id, // référence au signalement
-        //     'reference_type' => 'Signalement', // type de référence
-        // ]);
+       
 
-        // // Sauvegarde de la notification
-        // $notification->save();
 
+
+
+        Notification::create([
+            'user_id' => $request->agent_id,  // l’agent assigné
+            'type' => 'assignement',
+            'titre' => 'Nouvelle Intervention',
+            'message' => 'Vous avez été assigné au eintervention: "' . $signalement->description . '"',
+            'lien' => route('signalements.mes', $intervention->id),
+            'reference_id' => $signalement->id,
+            'reference_type' => 'intervention',
+            'notifiable_id' => $signalement->id,
+            'notifiable_type' => 'Signalement',
+        ]);
+        // Notification pour le citoyen
+        Notification::create([
+            'user_id' => $signalement->user_id,
+            'type' => 'update_signalement',
+            'titre' => 'Mise à jour du Signalement',
+            'message' => 'Votre signalement "' . $signalement->description . '" est maintenant en cours de traitement.',
+            'lien' => route('messignalements.auth', $signalement->id),
+            'reference_id' => $signalement->id,
+            'reference_type' => 'Signalement',
+            'notifiable_id' => $signalement->id,
+            'notifiable_type' => 'Signalement',
+        ]);
 
         // Retourner une réponse
         if ($intervention) {
@@ -239,9 +250,30 @@ class InterventionController extends Controller
         $intervention->dateFin = $request->dateFin;
         $intervention->resolution_status = 'termine';
         $intervention->save();
-        // dd($intervention);
+        $agent = $intervention->user;
+        $agent = User::find($intervention->user_id);
 
-        // Mettre à jour le statut du signalement
+
+
+
+        // Trouver l’admin (par exemple, tous les utilisateurs avec rôle admin)
+        $admins = User::where('role', 'admin')->get();
+
+        foreach ($admins as $admin) {
+            Notification::create([
+                'user_id' => $admin->id,  // l’admin destinataire
+                'type' => 'intervention_terminee',
+                'titre' => 'Intervention terminée a valideé',
+                'message' => 'L’intervention sur le signalement "' . $intervention->signalement->description . '" a été terminée par l’agent municipal "' . $agent->name . '".',
+                'lien' => route('intervention.valide_rejeter', $intervention->id),
+                'reference_id' => $intervention->signalement->id,
+                'reference_type' => 'Signalement_temrine_a_valide',
+                'notifiable_id' => $intervention->id,
+                'notifiable_type' => 'Intervention_termine',
+            ]);
+        }
+
+
 
         // Redirection selon le paramètre `source`
         $source = $request->input('source'); // Récupérer la source envoyée
@@ -284,7 +316,7 @@ class InterventionController extends Controller
 
                 return $interventionsRejete;
             });
-            $categories = Categorie::all();
+        $categories = Categorie::all();
 
         // dd($interventionsRejete);
         return Inertia::render('Agent_municipal/InterventionsRejete', [
@@ -292,7 +324,7 @@ class InterventionController extends Controller
             'categories' => $categories
         ]);
     }
-    public function valider($id)
+    public function valider(Request $request, $id)
     {
         $intervention = Intervention::findOrFail($id);
         $intervention->validation_admin = true;
@@ -300,8 +332,38 @@ class InterventionController extends Controller
         $intervention->save();
 
         // Mettre à jour le signalement
-        $intervention->signalement->statut = 'resolu';
-        $intervention->signalement->save();
+        $signalement = $intervention->signalement;
+        $signalement->statut = 'resolu';
+        $signalement->save();
+        // $intervention->signalement->statut = 'resolu';
+        // $intervention->signalement->save();
+
+        // Notification pour l’agent
+        Notification::create([
+            'user_id' => $intervention->user_id,  // l’agent assigné
+            'type' => 'validation_intervention',
+            'titre' => 'Intervention validée',
+            'message' => 'L’intervention sur le signalement "' . $signalement->description . '" a été validée par l’administrateur.',
+            'lien' => route('mon.historique', $intervention->id),
+            'reference_id' => $signalement->id,
+            'reference_type' => 'Signalement',
+            'notifiable_id' => $signalement->id,
+            'notifiable_type' => 'Signalement',
+        ]);
+
+        // Notification pour le citoyen (user)
+        Notification::create([
+            'user_id' => $signalement->user_id,  // le citoyen
+            'type' => 'signalement_resolu',
+            'titre' => 'Signalement résolu',
+            'message' => 'Votre signalement "' . $signalement->description . '" a été résolu merci a voter confiance.',
+            'lien' => route('messignalements.auth', $signalement->id),
+            'reference_id' => $signalement->id,
+            'reference_type' => 'Signalement',
+            'notifiable_id' => $signalement->id,
+            'notifiable_type' => 'Signalement',
+        ]);
+
 
         return back()->with('success', 'Intervention validée');
     }
@@ -313,6 +375,18 @@ class InterventionController extends Controller
         $intervention->commentaire_admin = $request->commentaire_admin;
         $intervention->resolution_status = 'rejetee';
         $intervention->save();
+        // Envoyer une notification à l’agent assigné dans le rejeter
+        Notification::create([
+            'user_id' => $intervention->user_id,  // l’agent affecté
+            'type' => 'intervention_rejetee',
+            'titre' => 'Intervention rejetée',
+            'message' => 'Votre intervention sur le signalement "' . $intervention->signalement->description . '" a été rejetée par l’administrateur.',
+            'lien' => route('interventions.rejetes', $intervention->id),
+            'reference_id' => $intervention->signalement->id,
+            'reference_type' => 'Signalement',
+            'notifiable_id' => $intervention->signalement->id,
+            'notifiable_type' => 'Signalement',
+        ]);
 
         return back()->with('error', 'Intervention rejetée');
     }
@@ -408,9 +482,9 @@ class InterventionController extends Controller
         // Retourner une réponse avec Inertia
         return Inertia::render('Agent_municipal/InterventionTerminee', [
             'interventions' => Intervention::with(['signalement.categorie', 'signalement.votes'])
-            ->where('resolution_status', 'termine')
-           
-            ->get() // Mettre à jour la liste des interventions
+                ->where('resolution_status', 'termine')
+
+                ->get() // Mettre à jour la liste des interventions
         ]);
     }
     public function getTerminees()

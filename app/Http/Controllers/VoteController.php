@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Signalement; 
 use App\Models\Vote; 
 use Illuminate\Support\Facades\Auth; // Importe la façade Auth pour accéder aux informations de l'utilisateur authentifié.
@@ -39,6 +40,7 @@ class VoteController extends Controller
                 'signalement_id' => $signalement->id, 
                 'type' => true,
             ]);
+            
 
             return response()->json(['message' => 'Signalement marqué comme urgent.'], 201);
         }
@@ -101,6 +103,21 @@ class VoteController extends Controller
                 'signalement_id' => $signalement->id,
                 'type' => $request->type,
             ]);
+            $userDuSignalement = $signalement->user;
+         dd($userDuSignalement);
+
+            if ($userDuSignalement) {
+                Notification::create([
+                    'user_id' => $userDuSignalement->id,  // L'utilisateur qui a posté le signalement
+                    'type' => 'urgent_signalement',
+                    'titre' => 'Signalement Urgent',
+                    'message' => 'Votre signalement "' . $signalement->description . '" a été marqué comme urgent par un utilisateur.',
+                    'lien' => route('messignalements.auth', $signalement->id),  // Le lien vers le signalement
+                    'reference_id' => $signalement->id,
+                    'reference_type' => 'Signalement',
+                    'notifiable_id' => $signalement->id,
+                    'notifiable_type' => 'Signalement',
+                ]);}
             return response()->json(['message' => 'Votre vote a été enregistré.'], 201);
         }
     }

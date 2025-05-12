@@ -449,7 +449,7 @@ import { Search, Filter, X, MapPin } from 'lucide-react';
 import SignalementItem from './SignalementItem'; 
 import AppLayout from '@/Layouts/AppLayout';
 
-export default function SignalementList({ signalements, currentUser }) {
+export default function SignalementList({ signalements, Usere_id }) {
     
   const [filteredSignalements, setFilteredSignalements] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -459,6 +459,11 @@ export default function SignalementList({ signalements, currentUser }) {
     isUrgent: false,
     showFilterMenu: false
   });
+  // console.log(Usere_id);
+  
+
+  
+
 
   // Liste des statuts et villes pour les filtres
   const statuts = ['en attente', 'en cours', 'resolu', 'rejtee'];
@@ -717,7 +722,7 @@ export default function SignalementList({ signalements, currentUser }) {
             <SignalementItem
               key={signalement.id}
               signalement={signalement}
-              currentUser={currentUser}
+              currentUser={Usere_id}
             />
           ))
         ) : (

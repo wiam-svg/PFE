@@ -45,5 +45,9 @@ class Vote extends Model
     {
         return $this->belongsTo(Signalement::class);
     }
+    public function notifications()
+    {
+       return $this->hasMany(Notification::class, 'reference_id');
+    }
 }
 

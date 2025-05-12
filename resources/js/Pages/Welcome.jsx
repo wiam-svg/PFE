@@ -26,7 +26,7 @@ export default function Welcome() {
               <Link className="text-gray-700 hover:text-red-700 flex items-center" href="/signalements">
                 <AlertTriangle className="mr-1 h-4 w-4" /> Signalements
               </Link>
-              <Link className="text-gray-700 hover:text-red-700 flex items-center" href="/carte">
+              <Link className="text-gray-700 hover:text-red-700 flex items-center" href="/Carte">
                 <Map className="mr-1 h-4 w-4" /> Carte
               </Link>
               <Link className="text-gray-700 hover:text-red-700 flex items-center" href="/a-propos">

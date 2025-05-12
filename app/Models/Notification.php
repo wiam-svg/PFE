@@ -9,17 +9,23 @@ class Notification extends Model
 {
     /** @use HasFactory<\Database\Factories\NotificationFactory> */
     use HasFactory;
+    // protected $fillable = [
+    //     'user_id',
+    //     'type',
+    //     'titre',
+    //     'est_lue',
+    //     'lien',
+    //     'message',
+    //     'reference_id',
+    //     'reference_type',
+    //     'read_at',
+    // ];
     protected $fillable = [
-        'user_id',
-        'type',
-        'titre',
-        'est_lue',
-        'lien',
-        'message',
-        'reference_id',
-        'reference_type',
-        'read_at',
+        'user_id', 'type', 'titre', 'message', 'lien',
+        'est_lue', 'notifiable_type', 'notifiable_id',
+        'reference_id', 'reference_type', 'read_at',
     ];
+    
 
     //  Chaque notification appartient à un utilisateur
     public function user()
@@ -37,5 +43,13 @@ class Notification extends Model
     public function signalement()
     {
         return $this->belongsTo(Signalement::class, 'reference_id');
+    }
+    public function commentaire()
+    {
+        return $this->belongsTo(Commentaire::class);
+    }
+    public function votes()
+   {
+    return $this->hasMany(Vote::class);
     }
 }

@@ -954,6 +954,7 @@ import { useForm } from '@inertiajs/react';
 import { MessageSquare, AlertTriangle, ChevronDown, ChevronUp, Edit, Trash2, Save, X } from 'lucide-react';
 
 export default function SignalementItem({ signalement, currentUser }) {
+  console.log('currentUser', currentUser); // vérifie ici
   const [isUrgent, setIsUrgent] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState(signalement.commentaire || []);
@@ -961,12 +962,14 @@ export default function SignalementItem({ signalement, currentUser }) {
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedContent, setEditedContent] = useState('');
   const [showLargeImage, setShowLargeImage] = useState(false);
+  // console.log(currentUsere);
+  console.log(signalement.user.id);
 
   const { data, setData, post, reset } = useForm({
     signalement_id: signalement.id,
     contenu: '',
   });
-  console.log("Current user ID:", signalement.user?.id);
+  // console.log("Current user ID:", signalement.user?.id);
   useEffect(() => {
     setIsUrgent(signalement.votes[0]?.type || false);
     setComments(signalement.commentaire);
@@ -1097,7 +1100,7 @@ export default function SignalementItem({ signalement, currentUser }) {
             </div>
             
             {/* Menu contextuel */}
-            {signalement.user?.id === signalement.user_id && (
+            {currentUser === signalement.user_id && (
               <div className="relative">
                 <button
                   onClick={() => setOpenMenuId(openMenuId === 'signalement' ? null : 'signalement')}
@@ -1242,7 +1245,7 @@ export default function SignalementItem({ signalement, currentUser }) {
                         </small>
                       </div>
 
-                      {signalement.user?.id === comment.user_id && (
+                      {currentUser === comment.user_id && (
                         <div className="relative ml-2">
                           <button
                             onClick={() => setOpenMenuId(openMenuId === comment.id ? null : comment.id)}

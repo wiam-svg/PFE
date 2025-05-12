@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AccountStatusMail;
+use App\Models\Notification;
 use App\Models\Signalement;
 use App\Models\User;
+use App\Notifications\UserAccountStatusNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
-use Illuminate\Validation\Rule; 
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -21,16 +25,15 @@ class RegisteredUserController extends Controller
      * Display the registration view.
      */
     public function index()
-{
+    {
 
-    $users = User::all();
+        $users = User::all();
 
-    
-    return Inertia::render('Admin/ListUsers', [
-        'users' => $users
-    ]);
-    
-}
+
+        return Inertia::render('Admin/ListUsers', [
+            'users' => $users
+        ]);
+    }
 
     /**
      * Handle an incoming registration request.
@@ -40,9 +43,9 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // dd($request->all());
-        
-                $request->validate([
-        
+
+        $request->validate([
+
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'age' => 'required|integer|min:1|max:120',
@@ -52,64 +55,76 @@ class RegisteredUserController extends Controller
             'ville' => 'required|string|max:100',
             'telephone' => 'required|string|max:20',
             'type' => [
-                'required', 
-                Rule::in(['citoyen', 'etudiant', 'agent_municipal', 'entreprise',]) 
+                'required',
+                Rule::in(['citoyen', 'etudiant', 'agent_municipal', 'entreprise',])
             ],
-        'nomEntreprise' => 'required_if:type,entreprise|nullable|string|max:255',
-        'ice' => [
-            'required_if:type,entreprise',
-            'nullable',
-            'string',
-            'size:15',
-        ],
-        'cin' => [
-            'required_if:type,citoyen',
-            'nullable',
-            'string',
-            'regex:/^[A-Z]{2}[0-9]{6}$/',
-            'unique:users,cin',
-        ],
-    
-        'cne' => [
-            'required_if:type,etudiant',
-            'nullable',
-            'string',
-            'regex:/^[0-9]{10}$/',
-            'unique:users,cne',
-        ],
-    
-        'matricule' => [
-            'required_if:type,agent municipal',
-            'nullable',
-            'string',
-            'regex:/^AGT-[0-9]{4}$/',
-            'unique:users,matricule',
-        ],
-    ]);
-    
+            'nomEntreprise' => 'required_if:type,entreprise|nullable|string|max:255',
+            'ice' => [
+                'required_if:type,entreprise',
+                'nullable',
+                'string',
+                'size:15',
+            ],
+            'cin' => [
+                'required_if:type,citoyen',
+                'nullable',
+                'string',
+                'regex:/^[A-Z]{2}[0-9]{6}$/',
+                'unique:users,cin',
+            ],
 
-   
-        $user=User::create([
+            'cne' => [
+                'required_if:type,etudiant',
+                'nullable',
+                'string',
+                'regex:/^[0-9]{10}$/',
+                'unique:users,cne',
+            ],
+
+            'matricule' => [
+                'required_if:type,agent municipal',
+                'nullable',
+                'string',
+                'regex:/^AGT-[0-9]{4}$/',
+                'unique:users,matricule',
+            ],
+        ]);
+
+
+
+        $user = User::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
-            'age'=>$request->age,
+            'age' => $request->age,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'adresse' => $request->adresse,
-            'ville'=>$request->ville,
+            'ville' => $request->ville,
             'telephone' => $request->telephone,
-            'type'=> $request->type,
-            'nomEntreprise'=>$request->nomEntreprise,
-            'ice'=>$request->ice,
-            'role'=>$request->role,
-            'postal_code'=>$request->postal_code,
-            'accept_terms'=>$request->accept_terms,
+            'type' => $request->type,
+            'nomEntreprise' => $request->nomEntreprise,
+            'ice' => $request->ice,
+            'role' => $request->role,
+            'postal_code' => $request->postal_code,
+            'accept_terms' => $request->accept_terms,
             'cin' => $request->cin,
             'cne' => $request->cne,
-             'matricule' => $request->matricule,
- ]);
-return redirect()->route('login')->with('success', 'Inscription réussie !');
-        // dd($user);
+            'matricule' => $request->matricule,
+        ]);
+        Notification::create([
+            'user_id' => 1,
+            'type' => 'nouveau_compte',
+            'titre' => 'Nouveau Compte Créé',
+            'message' => 'Un nouveau compte utilisateur a été créé : "' . $user->nom . ' ' . $user->prenom . '"',
+            'lien' => route('users.compte', $user->id),
+            'reference_id' => $user->id,
+            'reference_type' => 'User',
+            'notifiable_id' => $user->id,
+            'notifiable_type' => 'User',
+        ]);
+       
+        return redirect()->route('login')->with('success', 'Inscription réussie !');
+        dd($user);
         event(new Registered($user));
 
         Auth::login($user);
@@ -117,45 +132,47 @@ return redirect()->route('login')->with('success', 'Inscription réussie !');
         return redirect(route('dashboard'));
     }
 
-    public function create(){
+    public function create()
+    {
 
         return Inertia::render('Auth/Register');
     }
 
-    
+
 
 
 
     public function validateUser($id)
-{
-    $user = User::findOrFail($id);
+    {
+        $user = User::findOrFail($id);
 
-    $user->validated = !$user->validated;
+        $user->validated = !$user->validated;
 
-    if($user->validated){
-        $user->role = $user->type;
+        if ($user->validated) {
+            $user->role = $user->type;
+            $status = 'approved';
+        } else {
+            $user->role = 'user';
+            $status = 'rejected';
+        }
+        $user->update();
+        Mail::to($user->email)->send(new AccountStatusMail($user, $status));
+        return redirect()->back()->with('success', 'Statut de l’utilisateur mis à jour et email envoyé.');
     }
-    else{
-        $user->role ='user';
-
-    }
-     $user->update();
-
-}
     public function dashboard()
     {
-       $user = auth()->user(); // L'utilisateur connecté
-       $notifications = $user->notifications; // Récupérer toutes les notifications de l'utilisateur
+        $user = auth()->user(); // L'utilisateur connecté
+        $notifications = $user->notifications; // Récupérer toutes les notifications de l'utilisateur
 
         return inertia('Agent_municipal/Dashboard', [
-             'notifications' => $notifications, // Passer les notifications à la vue React
-    ]);
+            'notifications' => $notifications, // Passer les notifications à la vue React
+        ]);
     }
-    public function destoryUser($id){
+    public function destoryUser($id)
+    {
         $user = User::findOrFail($id);
+
         $user->delete();
-    
         return redirect()->back()->with('success', 'Utilisateur supprimé avec succès.');
     }
-
 }

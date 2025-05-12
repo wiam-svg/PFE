@@ -9,6 +9,7 @@ import {
 
 const AgentSidebar = () => {
   const { auth } = usePage().props;
+  const { unreadCount } = usePage().props;
   const url = window.location.pathname;
   const [isOpen, setIsOpen] = useState(true);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -132,11 +133,16 @@ const AgentSidebar = () => {
 
             {/* Notifications */}
             <Link
-              href='#'
+              href='/notifications'
               className={`flex items-center p-3 rounded-lg hover:bg-green-700 ${isActive('/agent/notifications')}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               <Bell size={22} />
+              {unreadCount > 0 && (
+                  <span className="absolute top-0 right-0 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                    {unreadCount}
+                  </span>
+                )}
               <span className="ml-3">Notifications</span>
             </Link>
 
@@ -255,10 +261,15 @@ const AgentSidebar = () => {
 
         {/* Notifications */}
         <Link
-          href='#'
+          href='/notifications'
           className={`flex items-center p-3 rounded-lg hover:bg-green-700 ${isActive('/agent/notifications')}`}
         >
           <Bell size={20} />
+          {unreadCount > 0 && (
+                  <span className="absolute top-0 right-0 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">
+                    {unreadCount}
+                  </span>
+                )}
           {isOpen && <span className="ml-3">Notifications</span>}
         </Link>
       </nav>

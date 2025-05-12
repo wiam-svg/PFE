@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commentaire;
+use App\Models\Notification;
 use App\Models\Signalement;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -46,6 +47,7 @@ class CommentaireController extends Controller
         //     'user_id' => auth()->id(),
         //     'contenu' => $data['contenu'],
         // ]);
+        $signalement = Signalement::findOrFail($request->signalement_id);
         $commentaire = new Commentaire();
         $commentaire->signalement_id = $request->signalement_id;
         $commentaire->user_id = auth()->id();
@@ -53,6 +55,26 @@ class CommentaireController extends Controller
         $commentaire->save(); 
         // dd($commentaire);
         // return response()->json($commentaire);
+        // dd($signalement);
+        // $userDuSignalement = $signalement->user;
+        $userDuSignalement = $signalement->user;
+        // dd($userDuSignalement);
+
+        if ($userDuSignalement) {
+            $notification= Notification::create([
+                'user_id' => $userDuSignalement->id,  
+                'type' => 'nouveau_commentaire',  
+                'titre' => 'Nouveau Commentaire', 
+                'lien' => route('messignalements.auth', $signalement->id),  
+                'message' => 'Un nouvel utilisateur a commenté votre signalement "' . $signalement->description . '".',
+                'notifiable_type' => 'Commentaire', 
+                'notifiable_id' => $signalement->id,  
+                'reference_id' => $signalement->id,  
+                'reference_type' => 'Commantaire',  
+            ]);
+        }
+       dd($notification);
+        return redirect()->route('messignalements.auth', $signalement->id)->with('success', 'Commentaire ajouté avec succès');
         
     }
 
