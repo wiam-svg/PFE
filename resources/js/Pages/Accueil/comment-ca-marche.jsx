@@ -97,8 +97,8 @@ const HowItWorksCard = () => {
   };
 
   return (
-    <AppLayout>
-    <div className={`max-w-6xl mx-auto transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+    // <AppLayout>
+    <div className={`max-w-6sl mx-auto transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
       {/* Main card with gradient background */}
       <div className="relative overflow-hidden rounded-3xl shadow-2xl">
         <div className="absolute inset-0 bg-gradient-to-br from-red-600 via-pink-500 to-orange-500 opacity-90"></div>
@@ -213,7 +213,7 @@ const HowItWorksCard = () => {
         </div>
       </div>
     </div>
-    </AppLayout>
+    // </AppLayout>
   );
 };
 

@@ -169,7 +169,7 @@ export default function InterventionsTerminees({ interventions }) {
       setShowModal(true);
       setRejectionId(id);
     } else if (action === 'detail') {
-      router.get(`/admin/intervention/${id}/detail_I_Atermine`);
+      router.get(`/admin/intervention/terminees/${id}/detail_I_Atermine`);
     }
   };
 

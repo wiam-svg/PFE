@@ -1,0 +1,860 @@
+{
+    "login": {
+        "title": "Se connecter",
+        "subtitle": "Entrez vos identifiants pour accéder à votre compte",
+        "email": "Email",
+        "password": "Mot de passe",
+        "forgot": "Mot de passe oublié?",
+        "remember": "Se souvenir de moi",
+        "submit": "Se connecter",
+        "submitting": "Connexion...",
+        "no_account": "Pas encore de compte?",
+        "register": "Inscrivez-vous",
+        "or_continue": "Ou continuer avec"
+    },
+    "app": {
+        "title": "RepareBladi - Plateforme de signalement citoyenne au Maroc",
+        "name": "RepareBladi"
+    },
+    "header": {
+        "home": "Accueil",
+        "reports": "Signalements",
+        "map": "Carte",
+        "about": "À propos",
+        "login": "Se connecter",
+        "report_problem": "Signaler un problème"
+    },
+    "hero": {
+        "title": "Améliorons ensemble notre Maroc",
+        "description": "RepareBladi est une plateforme qui permet aux citoyens de signaler des problèmes d'infrastructure et de services publics pour accélérer leur résolution.",
+        "create_account": "Créer un compte",
+        "how_it_works": "Comment ça marche"
+    },
+    "how_it_works": {
+        "title": "Comment ça marche",
+        "steps": {
+            "report": {
+                "title": "Signaler",
+                "description": "Prenez une photo du problème (nid-de-poule, lampadaire en panne, etc.) et soumettez-la via l'application."
+            },
+            "locate": {
+                "title": "Localiser",
+                "description": "Notre système géolocalise automatiquement le problème et le catégorise pour les services concernés."
+            },
+            "process": {
+                "title": "Traiter",
+                "description": "Les autorités compétentes reçoivent le signalement et planifient les interventions nécessaires."
+            },
+            "resolve": {
+                "title": "Résoudre",
+                "description": "Suivez l'avancement de la résolution et recevez une notification une fois le problème résolu."
+            }
+        }
+    },
+    "stats": {
+        "title": "Notre impact au Maroc",
+        "subtitle": "Grâce à la collaboration entre citoyens et autorités, nous améliorons la qualité de vie de tous les Marocains",
+        "reported": "Problèmes signalés",
+        "resolved": "Problèmes résolus",
+        "users": "Utilisateurs actifs",
+        "avg_time": "Temps moyen de résolution"
+    },
+    "testimonials": {
+        "title": "Ce que disent nos utilisateurs"
+    },
+    "cta": {
+        "title": "Ensemble, construisons un Maroc meilleur pour tous",
+        "description": "Rejoignez notre communauté de citoyens engagés et participez activement à l'amélioration de notre pays.",
+        "button": "Créer un compte gratuitement"
+    },
+    "footer": {
+        "description": "Une initiative citoyenne pour améliorer notre environnement urbain et la qualité de vie au Maroc.",
+        "quick_links": "Liens rapides",
+        "contact": "Contact",
+        "newsletter": {
+            "title": "Restez informé",
+            "description": "Inscrivez-vous à notre newsletter pour suivre nos actualités",
+            "placeholder": "Votre email",
+            "button": "S'inscrire"
+        },
+        "copyright": "© {{year}} RepareBladi. Tous droits réservés."
+    },
+    "register": {
+        "title": "Créer un compte",
+        "subtitle": "Rejoignez notre communauté en quelques étapes simples",
+        "steps": {
+            "personal_info": "Informations personnelles",
+            "profile_type": "Type de profil",
+            "finalization": "Finalisation"
+        },
+        "form": {
+            "personal_info": {
+                "first_name": "Prénom",
+                "last_name": "Nom",
+                "age": "Âge",
+                "email": "Email",
+                "phone": "Téléphone",
+                "address": "Adresse",
+                "city": "Ville",
+                "postal_code": "Code postal"
+            },
+            "account_types": {
+                "business": "Entreprise",
+                "citizen": "Citoyen",
+                "municipal_agent": "Agent Municipal",
+                "student": "Étudiant"
+            },
+            "business_info": {
+                "title": "Informations d'entreprise",
+                "company_name": "Nom de l'entreprise",
+                "ice": "ICE"
+            },
+            "citizen_info": {
+                "title": "Informations de citoyen",
+                "cin": "CIN"
+            },
+            "agent_info": {
+                "title": "Informations d'agent",
+                "employee_id": "Matricule"
+            },
+            "student_info": {
+                "title": "Informations d'étudiant",
+                "student_id": "CNE"
+            },
+            "password": {
+                "password": "Mot de passe",
+                "confirm_password": "Confirmer le mot de passe"
+            },
+            "summary": {
+                "title": "Récapitulatif de votre profil",
+                "name": "Nom",
+                "email": "Email",
+                "phone": "Téléphone",
+                "type": "Type de compte"
+            },
+            "terms": "J'accepte les <1>termes et conditions</1>",
+            "buttons": {
+                "back": "Retour",
+                "continue": "Continuer",
+                "create_account": "Créer mon compte",
+                "processing": "Traitement..."
+            }
+        }
+    },
+    "navbar": {
+        "logo": "RepareBladi",
+        "admin_subtitle": "| Administration",
+        "agent_subtitle": "| Agent Municipal",
+        "search_placeholder": "Rechercher...",
+        "links": {
+            "map": "Carte",
+            "home": "Accueil",
+            "reports": "Signalements",
+            "my_reports": "Mes signalements",
+            "all_reports": "Tous les signalements",
+            "about": "À propos",
+            "new_report": "Nouveau"
+        },
+        "user": {
+            "profile": "Profil",
+            "settings": "Paramètres",
+            "logout": "Déconnexion",
+            "admin_greeting": "Administrateur: {{name}}",
+            "agent_greeting": "Agent: {{name}} | Zone: {{zone}}",
+            "user_greeting": "{{name}}"
+        },
+        "notifications": {
+            "title": "Notifications",
+            "unread": "{{count}} non lues"
+        }
+    },
+    "agent_sidebar": {
+        "title": "Agent Municipal",
+        "menu": {
+            "dashboard": "Tableau de bord",
+            "interventions": "Interventions",
+            "in_progress": "En cours",
+            "completed": "Terminée",
+            "rejected": "Rejetée",
+            "history": "Historique",
+            "notifications": "Notifications",
+            "profile": "Profil",
+            "view_map": "Voir la carte",
+            "logout": "Déconnexion"
+        }
+    },
+    "agent_dashboard": {
+        "title": "Tableau de bord",
+        "stats": {
+            "assigned": {
+                "title": "Assignés",
+                "subtitle": "{{pending}} en attente, {{inProgress}} en cours"
+            },
+            "this_week": {
+                "title": "Cette semaine",
+                "subtitle": "depuis la semaine dernière"
+            },
+            "resolved": {
+                "title": "Résolus",
+                "subtitle": "En {{year}}"
+            }
+        },
+        "charts": {
+            "weekly_activity": "Activité hebdomadaire",
+            "status_distribution": "État des signalements",
+            "assigned_reports": "Signalements assignés",
+            "reports_count": "{{count}} signalements",
+            "quantity": "Quantité"
+        }
+    },
+    "agent_signalements": {
+        "title": "Mes Signalements Assignés",
+        "search_placeholder": "Rechercher par titre ou description...",
+        "filters": {
+            "all_categories": "Toutes les catégories",
+            "sort": {
+                "new_to_old": "Nouveaux → Anciens",
+                "old_to_new": "Anciens → Nouveaux"
+            }
+        },
+        "status": {
+            "completed": "Terminé",
+            "pending": "En attente"
+        },
+        "info_bar": "{{count}} signalement(s) correspondent à votre recherche.",
+        "no_results": "Aucun signalement trouvé.",
+        "buttons": {
+            "details": "Détails",
+            "mark_completed": "Marquer terminé",
+            "close": "Fermer"
+        },
+        "details_modal": {
+            "title": "Détails du Signalement",
+            "created_at": "Créé le : {{date}}"
+        },
+        "labels": {
+            "address": "Adresse",
+            "category": "Catégorie"
+        }
+    },
+    "signalement_details": {
+        "title": "📌 Détails du Signalement",
+        "fields": {
+            "title": "Titre",
+            "category": "Catégorie",
+            "description": "Description",
+            "address": "Adresse",
+            "status": "Statut",
+            "photo": "Photo du Signalement",
+            "not_specified": "Non spécifiée"
+        },
+        "user_section": {
+            "title": "👤 Informations de l'utilisateur",
+            "name": "Nom",
+            "email": "Email",
+            "phone": "Téléphone",
+            "not_available": "N/A"
+        }
+    },
+    "EditIntervention": {
+        "title": "Marquer comme terminé",
+        "actionDescription": "Description de l'action",
+        "describeAction": "Décrivez l'action réalisée",
+        "startDate": "Date de début",
+        "endDate": "Date de fin",
+        "photo": "Photo",
+        "preview": "Aperçu",
+        "addPhoto": "Cliquez pour ajouter une photo",
+        "save": "Enregistrer",
+        "cancel": "Annuler et revenir"
+    },
+    "InterventionTerminee": {
+        "title": "Interventions Terminées",
+        "subtitle": "Liste des interventions complétées et archivées",
+        "searchPlaceholder": "Rechercher par titre, description ou catégorie...",
+        "filter": "Filtrer",
+        "status": "Statut",
+        "titlee": "Titre",
+        "category": "Catégorie",
+        "startDate": "Date début",
+        "endDate": "Date fin",
+        "priority": "Priorité",
+        "actions": "Actions",
+        "totalInterventions": "Total interventions",
+        "highPriority": "Priorité haute",
+        "mediumPriority": "Priorité moyenne",
+        "thisMonth": "Ce mois",
+        "noInterventionsTitle": "Aucune intervention terminée",
+        "noInterventionsSubtitle": "Les interventions terminées apparaîtront ici une fois complétées.",
+        "high": "Haute",
+        "medium": "Moyenne",
+        "reset": "Réinitialiser",
+        "edit": "Modifier",
+        "viewDetails": "Voir détails"
+    },
+    "DetailIntervention": {
+        "title": "Détail Intervention vs Signalement",
+        "editButton": "Modifier Votre intervention",
+        "backButton": "Retour aux interventions",
+        "interventionTitle": "Intervention",
+        "actionDescription": "Description action",
+        "solutionStatus": "Statut De Solution",
+        "startDate": "Date début",
+        "endDate": "Date fin",
+        "interventionPhoto": "Photo de l'intervention",
+        "interventionPhotoAlt": "Preuve intervention",
+        "reportTitle": "Signalement",
+        "reportTitleLabel": "Titre",
+        "description": "Description",
+        "category": "Catégorie",
+        "status": "Statut",
+        "date": "Date",
+        "reportPhoto": "Photo du signalement",
+        "reportPhotoAlt": "Photo signalement",
+        "zoomedImageAlt": "Image agrandie"
+    },
+    "InterventionsRejetes": {
+        "title": "Interventions Rejetées",
+        "subtitle": "Gérez les interventions qui ont été rejetées",
+        "manage": "Gérez les interventions rejetées",
+        "filters": "Filtres",
+        "searchPlaceholder": "Rechercher par titre, description...",
+        "searchPlaceholderDesktop": "Rechercher par titre, description ou catégorie...",
+        "sortBy": "Trier par",
+        "priority": "Priorité",
+        "startDate": "Date de début",
+        "endDate": "Date de fin",
+        "status": "Statut",
+        "reset": "Réinitialiser",
+        "matchingInterventions": "{{count}} intervention(s) correspondant à \"{{searchTerm}}\"",
+        "matchingInterventionsDesktop": "{{count}} intervention(s) correspondant à \"{{searchTerm}}\"",
+        "noRejectedInterventions": "Aucune intervention rejetée",
+        "noRejectedFound": "Aucune intervention rejetée trouvée",
+        "willAppearHere": "Les interventions rejetées apparaîtront ici",
+        "high": "Haute",
+        "medium": "Moyenne",
+        "start": "Début",
+        "end": "Fin",
+        "edit": "Modifier",
+        "details": "Détails",
+        "totalRejected": "Total: {{count}} interventions rejetées",
+        "totalRejectedDesktop": "Total: {{count}} interventions rejetées",
+        "reportTitle": "Titre Signalement",
+        "category": "Catégorie",
+        "actions": "Actions"
+    },
+    "InterventionDetailPage": {
+        "title": "Détail de l'intervention",
+        "back": "Retour",
+        "backToInterventions": "Retour aux interventions",
+        "urgent": "Urgent",
+        "medium": "Moyenne",
+        "start": "Début",
+        "end": "Fin",
+        "report": "Signalement",
+        "adminComment": "Commentaire admin",
+        "noComment": "Aucun commentaire pour cette intervention.",
+        "reporterContact": "Contact du signaleur",
+        "contact": "Contacter",
+        "generalInfo": "Informations générales",
+        "location": "Localisation",
+        "period": "Période",
+        "assignedAgent": "Agent assigné",
+        "relatedReport": "Signalement associé",
+        "identity": "Identité",
+        "phone": "Téléphone",
+        "email": "Email"
+    },
+    "signalement": {
+        "back_to_interventions": "Retour aux interventions",
+        "votes": "votes",
+        "comments": "Commentaires",
+        "no_comments": "Aucun commentaire pour ce signalement",
+        "report_details": "Détails du Signalement"
+    },
+    "historique": {
+        "title": "Historique des interventions",
+        "no_interventions": "Aucune intervention dans l'historique.",
+        "solution_photo_alt": "Photo de la solution",
+        "description": "Description",
+        "start_date": "Début",
+        "end_date": "Fin",
+        "intervention_date": "Date d'intervention",
+        "intervention": "Intervention",
+        "report": "Signalement",
+        "pdf_button": "PDF",
+        "download_pdf": "Télécharger PDF",
+        "information": "Informations",
+        "details_status": "Détails et statut"
+    },
+    "notifications": {
+        "title": "Mes Notifications",
+        "none": "Aucune notification.",
+        "unread": "{{count}} non lues",
+        "mark_as_read": "Marquer comme lu",
+        "delete": "Supprimer",
+        "view_link": "Voir le lien",
+        "dot": "●"
+    },
+    "profile": {
+        "title": "Informations personnelles",
+        "description": "Mettez à jour vos informations personnelles et votre adresse email.",
+        "fields": {
+            "first_name": "Prénom",
+            "last_name": "Nom",
+            "email": "Email",
+            "phone": "Téléphone",
+            "city": "Ville"
+        },
+        "email_not_verified": {
+            "message": "Votre adresse email n'est pas vérifiée.",
+            "resend_link": "Cliquez ici pour renvoyer l'email de vérification."
+        },
+        "verification_link_sent": "Un nouveau lien de vérification a été envoyé.",
+        "save_changes": "Enregistrer les modifications",
+        "changes_saved": "Modifications enregistrées"
+    },
+    "password": {
+        "title": "Mettre à jour le mot de passe",
+        "description": "Assurez-vous que votre compte utilise un mot de passe long et aléatoire pour rester sécurisé.",
+        "fields": {
+            "current_password": "Mot de passe actuel",
+            "new_password": "Nouveau mot de passe",
+            "confirm_password": "Confirmer le mot de passe"
+        },
+        "save_button": "Enregistrer",
+        "saved_message": "Enregistré"
+    },
+    "account_deletion": {
+        "title": "Supprimer le compte",
+        "description": "Une fois votre compte supprimé, toutes ses ressources et données seront définitivement effacées. Avant de supprimer votre compte, veuillez télécharger toutes les données ou informations que vous souhaitez conserver.",
+        "delete_button": "Supprimer le compte",
+        "modal": {
+            "title": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+            "description": "Une fois votre compte supprimé, toutes ses ressources et données seront définitivement effacées. Veuillez entrer votre mot de passe pour confirmer que vous souhaitez supprimer définitivement votre compte.",
+            "password_placeholder": "Mot de passe",
+            "cancel_button": "Annuler",
+            "confirm_button": "Supprimer le compte"
+        }
+    },
+    "reports": {
+        "title": "Signalements",
+        "filters": {
+            "title": "Filtres",
+            "category": {
+                "label": "Catégorie",
+                "all": "Toutes les catégories"
+            },
+            "city": {
+                "label": "Ville",
+                "all": "Toutes les villes"
+            },
+            "reset": "Réinitialiser les filtres"
+        },
+        "results": {
+            "count": "{count} signalement(s) trouvé(s)",
+            "none": "Aucun signalement ne correspond à vos critères."
+        },
+        "list": {
+            "title": "Liste des signalements",
+            "uncategorized": "Non catégorisé"
+        }
+    },
+    "reports1": {
+        "results": {
+            "count": "{{count}} signalement(s) affiché(s) sur la carte",
+            "none": "Aucun signalement ne correspond à vos critères."
+        },
+        "fields": {
+            "category": "Catégorie",
+            "city": "Ville"
+        }
+    },
+    "admin_dashboard": {
+        "titre": "Tableau de bord administrateur",
+        "export_pdf": "Exporter PDF",
+        "since_last_month": "depuis le mois dernier",
+        "total_reports": "Signalements totaux",
+        "active_users": "Utilisateurs actifs",
+        "resolution_rate": "Taux de résolution",
+        "reports_evolution": "Évolution des signalements",
+        "reports_by_category": "Signalements par catégorie",
+        "reports": "Signalements",
+        "number": "Nombre",
+        "pdf_error": "Erreur lors de l'export PDF",
+        "reports_management": "Gestion des Signalements",
+        "pending": "en attente",
+        "view_assignments": "Voir les Assignements",
+        "search_placeholder": "Rechercher par titre ou ville...",
+        "all_cities": "Toutes les villes",
+        "all_categories": "Toutes catégories",
+        "title": "Titre",
+        "category": "Catégorie",
+        "status": "Statut",
+        "actions": "Actions",
+        "assign": "Assigner",
+        "assign_agent": "Assigner un agent",
+        "no_reports_found": "Aucun signalement ne correspond à vos critères",
+        "view_details": "Voir détails",
+        "delete": "Supprimer",
+        "select_agent_for": "Sélection d'agent pour le signalement",
+        "missions": "missions",
+        "assign_success": "Agent assigné avec succès !",
+        "assign_error": "Erreur lors de l'assignation.",
+        "delete_confirm": "Êtes-vous sûr de vouloir supprimer ce signalement?",
+        "delete_success": "Signalement supprimé avec succès!",
+        "delete_error": "Erreur lors de la suppression.",
+        "report_details": "Détails du Signalement",
+        "report_image": "Image du signalement",
+        "not_specified": "Non précisé",
+        "category1": "Catégorie",
+        "comments": "Commentaires",
+        "no_comments": "Aucun commentaire pour ce signalement.",
+        "additional_info": "Informations supplémentaires",
+        "name": "Nom",
+        "phone": "Numéro",
+        "age": "Âge",
+        "email": "Email",
+        "city": "Ville",
+        "add_details_hint": "Ajoute ici des détails comme les étapes de suivi, les intervenants, etc.",
+        "status_pending": "En attente",
+        "status_in_progress": "En cours",
+        "status_resolved": "Résolu",
+        "status_rejected": "Rejeté",
+        "days_ago": "Il y a {{count}} jours"
+    },
+    "admin_sidebar": {
+        "admin_panel": "Administration",
+        "dashboard": "Tableau de bord",
+        "categories": "Catégories",
+        "create_category": "Créer une catégorie",
+        "category_list": "Liste des catégories",
+        "users": "Utilisateurs",
+        "reports": "Signalements",
+        "unassigned": "Non assignés",
+        "assignments": "Assignations",
+        "completed": "Terminées",
+        "view_map": "Voir la carte",
+        "back_to_site": "Retour au site",
+        "notifications": "Notifications",
+        "profile": "Profil",
+        "archives": "Archives",
+        "logout": "Déconnexion"
+    },
+    "category_table": {
+        "title": "Gestion des catégories",
+        "headers": {
+            "name": "Nom",
+            "description": "Description",
+            "actions": "Actions"
+        },
+        "no_categories": "Aucune catégorie trouvée",
+        "delete_confirm": "Êtes-vous sûr de vouloir supprimer cette catégorie ?",
+        "actions": {
+            "edit": "Modifier",
+            "delete": "Supprimer"
+        },
+        "edit_form": {
+            "title": "Modifier la catégorie",
+            "fields": {
+                "name": "Nom",
+                "description": "Description"
+            },
+            "buttons": {
+                "cancel": "Annuler",
+                "save": "Enregistrer"
+            }
+        },
+        "add_button": "Ajouter une catégorie"
+    },
+    "categories": {
+        "createCategory": "Créer une Catégorie",
+        "name": "Nom",
+        "description": "Description",
+        "create": "Créer"
+    },
+    "listuser": {
+        "title": "Gestion des utilisateurs",
+        "searchPlaceholder": "Rechercher par nom ou email...",
+        "filterCity": "Filtrer par ville",
+        "filterRole": "Filtrer par rôle",
+        "user": "Utilisateur",
+        "type": "Type",
+        "role": "Rôle",
+        "actions": "Actions",
+        "validate": "Valider",
+        "invalidate": "Invalider",
+        "validating": "Traitement en cours...",
+        "deleteConfirm": "Supprimer cet utilisateur ?",
+        "delete": "Supprimer",
+        "userValidated": "Utilisateur validé/invalide !",
+        "userDeleted": "Utilisateur supprimé",
+        "validationError": "Erreur lors de la validation.",
+        "deletionError": "Erreur lors de la suppression."
+    },
+    "editAssignement": {
+  "title": "Modifier l'assignement",
+  "agentLabel": "Agent :",
+  "chooseAgent": "-- Choisir un agent --",
+  "reportLabel": "Signalement :",
+  "chooseReport": "-- Choisir un signalement --",
+  "submit": "Mettre à jour",
+  "success": "Assignement mis à jour avec succès",
+  "error": "Erreur lors de la mise à jour"
+}
+,
+
+    "Assignements": {
+      "title": "Assignements",
+      "active_count": "{count} actifs",
+      "search_placeholder": "Rechercher par titre ou ville...",
+      "all_cities": "Toutes les villes",
+      "all_categories": "Toutes catégories",
+      "table_headers": {
+        "id": "ID",
+        "report": "Signalement",
+        "agent": "Agent",
+        "status": "Statut",
+        "actions": "Actions"
+      },
+      "status": {
+        "completed": "Terminé",
+        "pending": "En cours"
+      },
+      "buttons": {
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "delete_confirm": "Êtes-vous sûr de vouloir supprimer cet assignement ?"
+      },
+      "no_results": "Aucun résultat trouvé",
+      "mobile_view": {
+        "report_id": "ID Signalement",
+        "assigned_to": "Assigné à"
+      }
+    },
+    
+        "createsignalements": {
+          "head_title": "Créer un signalement",
+          "header": {
+            "title": "Créer un signalement",
+            "subtitle": "Utilisez ce formulaire pour signaler un problème"
+          },
+          "form": {
+            "title": {
+              "label": "Titre",
+              "placeholder": "Titre du signalement"
+            },
+            "description": {
+              "label": "Description",
+              "placeholder": "Description détaillée"
+            },
+            "image": {
+              "label": "Image",
+              "upload_text": "Cliquez pour ajouter une photo",
+              "preview_alt": "Aperçu de l'image"
+            },
+            "city": {
+              "label": "Ville",
+              "placeholder": "Ville"
+            },
+            "address": {
+              "label": "Adresse",
+              "placeholder": "Adresse précise"
+            },
+            "category": {
+              "label": "Catégorie",
+              "default_option": "-- Choisir une catégorie --"
+            },
+            "submit": {
+              "label": "Créer le signalement",
+              "processing": "Envoi en cours..."
+            }
+          }
+        },
+        
+            "mesSignalements": {
+              "header": {
+                "title": "Mes Signalements",
+                "subtitle": "Suivez l'état de vos signalements et leur progression"
+              },
+              "stats": {
+                "total": {
+                  "label": "Total de signalements"
+                },
+                "resolved": {
+                  "label": "Signalements résolus"
+                },
+                "pending": {
+                  "label": "En attente/en cours"
+                }
+              },
+              "filters": {
+                "title": "Filtrer les signalements",
+                "status": {
+                  "label": "Statut",
+                  "all": "Tous les statuts"
+                },
+                "category": {
+                  "label": "Catégorie",
+                  "all": "Toutes les catégories"
+                }
+              },
+              "status": {
+                "en_attente": "En attente",
+                "validé": "Validé",
+                "en_cours": "En cours",
+                "rejeté": "Rejeté",
+                "résolu": "Résolu"
+              },
+              "details": {
+                "description": "Description",
+                "metadata": "Détails",
+                "category": "Catégorie",
+                "created_at": "Créé le",
+                "engagement": "Engagement",
+                "votes": "Votes",
+                "comments": "Commentaires"
+              },
+              "comments": {
+                "title": "Commentaires",
+                "empty": "Aucun commentaire pour le moment"
+              },
+              "empty": {
+                "title": "Aucun signalement trouvé",
+                "filtered": "Aucun signalement ne correspond aux filtres sélectionnés.",
+                "default": "Vous n'avez pas encore créé de signalement."
+              },
+              "actions": {
+                "edit": "Modifier",
+                "delete": "Supprimer",
+                "reset_filters": "Réinitialiser les filtres",
+                "create": "Créer un signalement"
+              }
+            },
+            
+                "editsignalement": {
+                  "head": {
+                    "title": "Modifier un signalement"
+                  },
+                  "header": {
+                    "title": "Modifier un signalement",
+                    "subtitle": "Utilisez ce formulaire pour mettre à jour les informations du signalement"
+                  },
+                  "form": {
+                    "title": {
+                      "label": "Titre",
+                      "placeholder": "Titre du signalement"
+                    },
+                    "description": {
+                      "label": "Description",
+                      "placeholder": "Description détaillée"
+                    },
+                    "image": {
+                      "label": "Photo",
+                      "upload_text": "Cliquez pour ajouter une photo",
+                      "preview_alt": "Aperçu de l'image"
+                    },
+                    "city": {
+                      "label": "Ville",
+                      "placeholder": "Ville"
+                    },
+                    "address": {
+                      "label": "Adresse",
+                      "placeholder": "Adresse précise"
+                    },
+                    "category": {
+                      "label": "Catégorie",
+                      "default_option": "-- Choisir une catégorie --"
+                    },
+                    "status": {
+                      "label": "Statut"
+                    }
+                  },
+                  "actions": {
+                    "save": "Enregistrer les modifications",
+                    "processing": "Enregistrement en cours...",
+                    "cancel": "Annuler"
+                  }
+                },
+                
+                    "signalementlist": {
+                      "search": {
+                        "placeholder": "Rechercher par titre, description ou adresse..."
+                      },
+                      "filters": {
+                        "button": "Filtres",
+                        "reset": "Réinitialiser",
+                        "status": {
+                          "label": "Statut",
+                          "all": "Tous"
+                        },
+                        "city": {
+                          "label": "Ville",
+                          "all": "Toutes"
+                        },
+                        "urgent": {
+                          "label": "les Urgents"
+                        }
+                      },
+                      "status": {
+                        "en_attente": "En attente",
+                        "en_cours": "En cours",
+                        "resolu": "Résolu",
+                        "rejtee": "Rejeté"
+                      },
+                      "results": {
+                        "count": "{count} signalement{count, plural, =1 {} other {s}} trouvé{count, plural, =1 {} other {s}}",
+                        "search": "Recherche",
+                        "status": "Statut",
+                        "urgent": "Urgents uniquement",
+                        "date": "Date"
+                      },
+                      "empty": {
+                        "title": "Aucun signalement trouvé",
+                        "message": "Essayez de modifier vos critères de recherche ou de filtrage.",
+                        "reset_button": "Réinitialiser tous les filtres"
+                      }
+                    
+                  },
+                  
+                    "signalementitem": {
+                      "image_alt": "Signalement",
+                      "zoom": "Agrandir",
+                      "urgent": "URGENT",
+                      "status": {
+                        "en_attente": "En attente",
+                        "en_cours": "En cours",
+                        "résolu": "Résolu",
+                        "refusé": "Refusé"
+                      },
+                      "actions": {
+                        "edit": "Modifier",
+                        "delete": "Supprimer",
+                        "mark_urgent": "Marquer comme Urgent",
+                        "cancel_urgent": "Annuler Urgent",
+                        "urgent": "Urgent"
+                      },
+                      "delete_confirm": "Es-tu sûr de vouloir supprimer ce signalement ?",
+                      "comments": {
+                        "title": "Commentaires",
+                        "hide": "Masquer",
+                        "show": "Commentaires ({count})",
+                        "empty": "Aucun commentaire",
+                        "unknown_user": "Utilisateur inconnu",
+                        "edited": "Modifié",
+                        "save": "Enregistrer",
+                        "cancel": "Annuler",
+                        "edit": "Modifier",
+                        "delete": "Supprimer",
+                        "delete_confirm": "Supprimer ce commentaire ?",
+                        "add_placeholder": "Ajouter un commentaire...",
+                        "comment": "Commenter"
+                      }
+                    }
+                  
+              
+          
+      
+  
+      
+}

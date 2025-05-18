@@ -61,7 +61,7 @@ class CommentaireController extends Controller
         // dd($userDuSignalement);
 
         if ($userDuSignalement) {
-            $notification= Notification::create([
+         Notification::create([
                 'user_id' => $userDuSignalement->id,  
                 'type' => 'nouveau_commentaire',  
                 'titre' => 'Nouveau Commentaire', 
@@ -73,8 +73,8 @@ class CommentaireController extends Controller
                 'reference_type' => 'Commantaire',  
             ]);
         }
-       dd($notification);
-        return redirect()->route('messignalements.auth', $signalement->id)->with('success', 'Commentaire ajouté avec succès');
+    //    dd($notification);
+        // return redirect()->route('messignalements.auth', $signalement->id)->with('success', 'Commentaire ajouté avec succès');
         
     }
 

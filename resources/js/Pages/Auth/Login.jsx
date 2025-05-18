@@ -177,13 +177,16 @@
 
 import { useState } from 'react';
 import { useForm } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
+
+
 
 const Login = () => {
     const { data, setData, post, processing, errors } = useForm({
         email: '',
         password: ''
     });
-
+    const { t ,i18n} = useTranslation();
     const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (e) => {
@@ -192,16 +195,19 @@ const Login = () => {
     };
 
     return (
+        
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
                 <div className="text-center mb-8">
-                    <h2 className="text-3xl font-extrabold text-gray-800">Se connecter</h2>
-                    <p className="text-gray-600 mt-2">Entrez vos identifiants pour accéder à votre compte</p>
+                <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+                <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
+                    <h2 className="text-3xl font-extrabold text-gray-800">{t('login.title')}</h2>
+                    <p className="text-gray-600 mt-2">{t('login.subtitle')}</p>
                 </div>
-                
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-gray-700 font-medium mb-2">Email</label>
+                        <label className="block text-gray-700 font-medium mb-2">{t('login.email')}</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -209,7 +215,7 @@ const Login = () => {
                                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                                 </svg>
                             </div>
-                            <input 
+                            <input
                                 type="email"
                                 name="email"
                                 value={data.email}
@@ -224,9 +230,9 @@ const Login = () => {
 
                     <div>
                         <div className="flex items-center justify-between mb-2">
-                            <label className="block text-gray-700 font-medium">Mot de passe</label>
+                            <label className="block text-gray-700 font-medium">{t('login.password')}</label>
                             <a href="/forgot-password" className="text-sm text-red-600 hover:text-red-800">
-                                Mot de passe oublié?
+                            {t('login.forgot')}
                             </a>
                         </div>
                         <div className="relative">
@@ -235,7 +241,7 @@ const Login = () => {
                                     <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                                 </svg>
                             </div>
-                            <input 
+                            <input
                                 type={showPassword ? 'text' : 'password'}
                                 name="password"
                                 value={data.password}
@@ -244,8 +250,8 @@ const Login = () => {
                                 placeholder="••••••••"
                                 required
                             />
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600 hover:text-gray-800"
                                 aria-label="Afficher/Masquer le mot de passe"
@@ -274,11 +280,11 @@ const Login = () => {
                             className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
                         />
                         <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-                            Se souvenir de moi
+                        {t('login.remember')}
                         </label>
                     </div>
 
-                    <button 
+                    <button
                         type="submit"
                         className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
                         disabled={processing}
@@ -289,30 +295,32 @@ const Login = () => {
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                Connexion...
+                                {t('login.submitting')}
                             </div>
                         ) : (
-                            'Se connecter'
+                            <>{t('login.submit')}</>
                         )}
                     </button>
                 </form>
 
                 <div className="mt-8 text-center">
                     <p className="text-gray-600">
-                        Pas encore de compte? {' '}
+                    {t('login.no_account')}? {' '}
                         <a href="/register" className="font-medium text-red-600 hover:text-red-500 hover:underline transition-colors">
-                            Inscrivez-vous
+                        {t('login.register')}
                         </a>
                     </p>
                 </div>
                 
+
+
                 <div className="mt-6">
                     <div className="relative">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-gray-300"></div>
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-white text-gray-500">Ou continuer avec</span>
+                            <span className="px-2 bg-white text-gray-500">{t('login.or_continue')}</span>
                         </div>
                     </div>
 

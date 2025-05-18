@@ -38,29 +38,29 @@ class SignalementController extends Controller
     //     ]);
     // }
     public function index_api()
-{
-    // Récupérer tous les signalements avec latitude et longitude
-    $signalements = Signalement::with(['categorie','user'])->get();
-    $categories=Categorie::all();
-    $user=auth::user();
+    {
+        // Récupérer tous les signalements avec latitude et longitude
+        $signalements = Signalement::with(['categorie', 'user'])->get();
+        $categories = Categorie::all();
+        $user = auth::user();
 
-    // Retourner la vue avec les signalements
-    return Inertia::render('Signalements/Index', [
-        'signalements' => $signalements,
-        'categories' =>$categories,
-        'user'=>$user
-    ]);
-}
+        // Retourner la vue avec les signalements
+        return Inertia::render('Signalements/Index', [
+            'signalements' => $signalements,
+            'categories' => $categories,
+            'user' => $user
+        ]);
+    }
 
-   
+
     public function index()
     {
         $userId = auth()->id();
         // dd($userId);
 
         $signalements = Signalement::with(['commentaire.user', 'votes', 'user'])
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->orderBy('created_at', 'desc')
+            ->get();
         // ->map(function ($s) use ($userId) {
         //     $s->is_owner = $s->user_id === $userId;
         //     return $s;
@@ -68,14 +68,14 @@ class SignalementController extends Controller
 
 
         $comments = Commentaire::with('user')
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->orderBy('created_at', 'desc')
+            ->get();
 
 
         return Inertia::render('Signalements/ListSignalements', [
             'signalements' => $signalements,
-            'commentes'=>$comments,
-            'Usere_id'=>$userId
+            'commentes' => $comments,
+            'Usere_id' => $userId
         ]);
     }
 
@@ -129,10 +129,10 @@ class SignalementController extends Controller
     //     ]);
     //     // dd($validated);
 
-    
+
     //     // Redirection
     //     return redirect()->route('signalements.index');
-    
+
     // }
 
 
@@ -161,59 +161,59 @@ class SignalementController extends Controller
         ]);
     }
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'titre' => 'required|string|max:255',
-        'description' => 'required|string',
-        'image' => 'nullable|image|max:2048',
-        'ville' => 'required|string',
-        'adresse' => 'required|string',
-        'categorie_id' => 'required|exists:categories,id',
-    ]);
+    {
+        $validated = $request->validate([
+            'titre' => 'required|string|max:255',
+            'description' => 'required|string',
+            'image' => 'nullable|image|max:2048',
+            'ville' => 'required|string',
+            'adresse' => 'required|string',
+            'categorie_id' => 'required|exists:categories,id',
+        ]);
 
-    // Upload de l'image si elle existe
-    if ($request->hasFile('image')) {
-        $validated['image'] = $request->file('image')->store('signalements_test', 'public');
+        // Upload de l'image si elle existe
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('signalements_test', 'public');
+        }
+
+        // Ajout des champs automatiques
+        $validated['statut'] = 'en attente';
+        $validated['dateCreation'] = now();
+        $validated['user_id'] = auth()->id();
+
+
+        $fullAddress = $validated['adresse'] . ', ' . $validated['ville'] . ', Maroc';
+        $coords = \App\Helpers\GeoHelper::getCoordinates($fullAddress, env('GEOAPIFY_API_KEY'));
+
+        if ($coords) {
+            $validated['longitude'] = $coords[0];
+            $validated['latitude'] = $coords[1];
+        } else {
+            $validated['longitude'] = null;
+            $validated['latitude'] = null;
+        }
+
+
+        // Création du signalement AVEC latitude et longitude
+        $signalement = Signalement::create($validated);
+        // dd($coords);
+
+
+        Notification::create([
+            'user_id' => 1,  // ou boucle sur tous les admins
+            'type' => 'nouveau_signalement',
+            'titre' => 'Nouveau Signalement',
+            'message' => 'Un nouveau signalement a été ajouté : "' . $signalement->description . '"',
+            'lien' => route('signalements.index', $signalement->id),
+            'reference_id' => $signalement->id,
+            'reference_type' => 'Signalement',
+            'notifiable_id' => $signalement->id,
+            'notifiable_type' => 'Signalement',
+        ]);
+
+        // Redirection
+        return redirect()->route('signalements.index');
     }
-
-    // Ajout des champs automatiques
-    $validated['statut'] = 'en attente';
-    $validated['dateCreation'] = now();
-    $validated['user_id'] = auth()->id();
-
-    
-    $fullAddress = $validated['adresse'] . ', ' . $validated['ville'] . ', Maroc'; 
-    $coords = \App\Helpers\GeoHelper::getCoordinates($fullAddress, env('GEOAPIFY_API_KEY'));
-
-    if ($coords) {
-        $validated['longitude'] = $coords[0]; 
-        $validated['latitude'] = $coords[1];  
-    } else {
-        $validated['longitude'] = null;
-        $validated['latitude'] = null;
-    }
-
-   
-    // Création du signalement AVEC latitude et longitude
-    $signalement = Signalement::create($validated);
-    // dd($coords);
-
-
-    Notification::create([
-        'user_id' => 1,  // ou boucle sur tous les admins
-        'type' => 'nouveau_signalement',
-        'titre' => 'Nouveau Signalement',
-        'message' => 'Un nouveau signalement a été ajouté : "' . $signalement->description . '"',
-        'lien' => route('signalements.index', $signalement->id),
-        'reference_id' => $signalement->id,
-        'reference_type' => 'Signalement',
-        'notifiable_id' => $signalement->id,
-        'notifiable_type' => 'Signalement',
-    ]);
-
-    // Redirection
-    return redirect()->route('signalements.index');
-}
 
 
     /**
@@ -260,7 +260,7 @@ class SignalementController extends Controller
     }
 
 
-    public function toggleUrgent(Request $request ,$signalementId)
+    public function toggleUrgent(Request $request, $signalementId)
     {
         // dd($signalementId);
 
@@ -281,18 +281,18 @@ class SignalementController extends Controller
             // Inverser l'état de l'urgence (type : true pour urgent, false pour non urgent)
             $vote->type = !$vote->type;  // Si c'est urgent, ça deviendra non urgent et vice versa
             $vote->update();
-            
         } else {
             // Si aucun vote n'existe pour ce signalement, en créer un
-            $vote = Vote::create([
-                'user_id' => $user->id,
-                'signalement_id' => $signalementId,
-                'type' => true, // Par défaut, on marque ce signalement comme urgent
-            ],
-           
-        );
+            $vote = Vote::create(
+                [
+                    'user_id' => $user->id,
+                    'signalement_id' => $signalementId,
+                    'type' => true, // Par défaut, on marque ce signalement comme urgent
+                ],
+
+            );
         }
-       
+
         $signalement = Signalement::findOrFail($request->signalement_id);
         if ($vote->type == 1) {
             $userDuSignalement = $signalement->user;
@@ -309,156 +309,152 @@ class SignalementController extends Controller
                     'reference_type' => 'Signalement',
                     'notifiable_id' => $signalement->id,
                     'notifiable_type' => 'Signalement',
-                ]);}}
+                ]);
+            }
+        }
     }
 
 
     public function destroy($id)
     {
         $signalement = Signalement::find($id);
-        $signalementId = $signalement->id; 
-        $signalementDescription =  $signalement->description; 
-      
+        $signalementId = $signalement->id;
+        $signalementDescription =  $signalement->description;
+
         if ($signalement->image) {
             Storage::delete(str_replace('/storage/', '', $signalement->image));
         }
-        DB::statement("SET @deleted_by = ". auth()->id());
+        DB::statement("SET @deleted_by = " . auth()->id());
         $user = $signalement->user;
         $signalement->delete($id);
         if ($user) {
             Notification::create([
-                'user_id' => $user->id, 
-                'type' => 'suppression_signalement',  
-                'titre' => 'Signalement Supprimé',  
+                'user_id' => $user->id,
+                'type' => 'suppression_signalement',
+                'titre' => 'Signalement Supprimé',
                 'message' => 'Votre signalement "' .  $signalementDescription . '" a été supprimé par l\'administrateur.',
                 'lien' => route('messignalements.auth'),  // Lien vers la liste des signalements ou une autre page
-                'reference_id' =>  $signalementId ,  // ID du signalement supprimé
+                'reference_id' =>  $signalementId,  // ID du signalement supprimé
                 'reference_type' => 'Signalement',  // Type de la référence
-                'notifiable_id' =>  $signalementId ,  // ID du signalement
+                'notifiable_id' =>  $signalementId,  // ID du signalement
                 'notifiable_type' => 'Signalement',  // Type de la référence
             ]);
             return redirect()->back()->with('success', 'Le signalement a été supprimé.');
-
-    }}
+        }
+    }
     public function destroy_user($id)
     {
         $signalement = Signalement::find($id);
         // dd($signalement->id);
-        $signalementId = $signalement->id; 
-        $signalementDescription =  $signalement->description; 
+        $signalementId = $signalement->id;
+        $signalementDescription =  $signalement->description;
         // if ($signalement->status !== 'en attente') {
         //     return redirect()->back()->with('error', 'Vous ne pouvez supprimer qu’un signalement en attente.');
         // }
-        
+
         if ($signalement->image) {
             Storage::delete(str_replace('/storage/', '', $signalement->image));
         }
-        DB::statement("SET @deleted_by =". auth()->id());
+        DB::statement("SET @deleted_by =" . auth()->id());
         $signalement->delete($id);
         $admin = User::where('role', 'admin')->first();
         if ($admin) {
             Notification::create([
-                'user_id' => $admin->id, 
-                'type' => 'suppression_signalement',  
-                'titre' => 'Signalement Supprimé',  
+                'user_id' => $admin->id,
+                'type' => 'suppression_signalement',
+                'titre' => 'Signalement Supprimé',
                 'message' => 'Un utilisateur a supprimé le signalement : "' .  $signalementDescription . '".',
-                'lien' =>route('archives.index'),
-                'reference_id' =>  $signalementId ,  // ID du signalement supprimé
+                'lien' => route('archives.index'),
+                'reference_id' =>  $signalementId,  // ID du signalement supprimé
                 'reference_type' => 'Signalement',  // Type de la référence
-                'notifiable_id' =>  $signalementId ,  // ID du signalement
+                'notifiable_id' =>  $signalementId,  // ID du signalement
                 'notifiable_type' => 'Signalement',  // Type de la référence
             ]);
-           
+        }
+        return redirect()->back()->with('success', 'Le signalement a été supprimé.');
     }
-     return redirect()->back()->with('success', 'Le signalement a été supprimé.');
-
-}
 
 
 
-    
+
     public function mesSignalements()
     {
-    
+
         if (Auth::user()->role !== 'agent_municipal') {
-            
-            abort(403, );
+
+            abort(403,);
         }
 
 
         $signalements = Intervention::where('user_id', Auth::id())
-        ->where('resolution_status','en cours')
-        ->with('user','signalement.categorie')->get();
+            ->where('resolution_status', 'en cours')
+            ->with('user', 'signalement.categorie')->get();
 
         return Inertia::render('Agent_municipal/MesSignalements', [
             'signalements' => $signalements,
         ]);
-    
     }
     public function validerSolution($id)
-{
-    $signalement = Signalement::findOrFail($id);
-    $signalement->statut = 'résolu';
-    $signalement->save();
+    {
+        $signalement = Signalement::findOrFail($id);
+        $signalement->statut = 'résolu';
+        $signalement->save();
 
-    return redirect()->route('admin.signalements')->with('success', 'Signalement résolu.');
-}
-public function showDetails($id)
-{
-    // Récupérer le signalement avec ses détails (y compris les interventions)
-    $signalement = Signalement::with('interventions', 'categorie','user')->findOrFail($id);
-    // dd($signalement);
+        return redirect()->route('admin.signalements')->with('success', 'Signalement résolu.');
+    }
+    public function showDetails($id)
+    {
+        // Récupérer le signalement avec ses détails (y compris les interventions)
+        $signalement = Signalement::with('interventions', 'categorie', 'user')->findOrFail($id);
+        // dd($signalement);
 
-    // Retourner la vue Inertia avec les données nécessaires
-    return Inertia::render('Agent_municipal/SignalementDetails', [
-        'signalement' => $signalement,
-    ]);
-}
-public function SignalementDetails($id)
-{
-    $signalement = Signalement::with(['commentaire.user', 'votes','interventions','Categorie'])->findOrFail($id);
-    $votesCount = $signalement->votes->count();
+        // Retourner la vue Inertia avec les données nécessaires
+        return Inertia::render('Agent_municipal/SignalementDetails', [
+            'signalement' => $signalement,
+        ]);
+    }
+   
+    public function SignalementDetails($id)
+    {
+        $signalement = Signalement::with(['commentaire.user', 'votes', 'interventions', 'Categorie'])->findOrFail($id);
+        $votesCount = $signalement->votes->count();
 
-    return Inertia::render('Signalements/SignalementDetails', [
-        'signalement' => $signalement,
-        'votesCount' => $votesCount,
-    ]);
-}
-public function mesSignalementsAuth()
-{
-    $user = auth()->user();
+        return Inertia::render('Signalements/SignalementDetails', [
+            'signalement' => $signalement,
+            'votesCount' => $votesCount,
+        ]);
+    }
+    public function mesSignalementsAuth()
+    {
+        $user = auth()->user();
 
-    $signalements = Signalement::with(['Categorie', 'votes', 'commentaire.user'])
-        ->where('user_id', $user->id)
-        ->get();
-    $categories=Categorie::all();
+        $signalements = Signalement::with(['Categorie', 'votes', 'commentaire.user'])
+            ->where('user_id', $user->id)
+            ->get();
+        $categories = Categorie::all();
 
-    return Inertia::render('Signalements/MesSignalements_auth', [
-        'signalements' => $signalements,
-        'User_id'=>$user,
-        
-       
-    ]);
-}
-public function getDetails_signalement($id)
+        return Inertia::render('Signalements/MesSignalements_auth', [
+            'signalements' => $signalements,
+            'User_id' => $user,
+
+
+        ]);
+    }
+    public function getDetails_signalement($id)
     {
         $signalement = Signalement::with([
             'categorie',
             'user',
             'commentaire.user',
             'votes',
-            
+
         ])->findOrFail($id);
-        
-       return Inertia::render('Admin/GetDetail', [
-        'signalement' => $signalement,
-       
-        
-       
-    ]);
+
+        return Inertia::render('Admin/GetDetail', [
+            'signalement' => $signalement,
+
+
+
+        ]);
     }
-
-
-
-
 }

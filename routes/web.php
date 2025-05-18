@@ -53,9 +53,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -125,7 +124,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin/signalement_nonassigne', [InterventionController::class, 'showSignalements']);
     Route::post('/admin/assign-agent-to-signalement', [InterventionController::class, 'assignAgent']);
-
     Route::get('/admin/signalements/{id}/details', [SignalementController::class, 'getDetails_signalement'])->name('admin.signalement.details');
 
 
@@ -133,8 +131,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/admin/assignements/{id}', [InterventionController::class, 'destroy'])->name('admin.delete_assignement');
     Route::get('/admin/assignements/{id}/edit', [InterventionController::class, 'edit'])->name('admin.edit');
     Route::post('/admin/assignements/{id}', [InterventionController::class, 'update']);
-    Route::get('/agent/signalement/{id}/details', [SignalementController::class, 'showDetails'])->name('agent.signalement.details');
-
+    Route::get('/admin/intervention/terminees/{id}/detail_I_Atermine', [InterventionController::class, 'showDetail_I_Atermine']);
+    
 
     Route::get('/admin/interventions/terminees', [InterventionController::class, 'interventionsTerminees'])->name('intervention.valide_rejeter');
     Route::post('/admin/intervention/{id}/valider', [InterventionController::class, 'valider']);

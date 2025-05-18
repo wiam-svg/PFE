@@ -10,11 +10,13 @@ use App\Models\User;
 use App\Models\Vote;
 use App\Notifications\SignalementAssigned;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Support\Facades\Storage;
 // use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use IntlChar;
 
@@ -236,8 +238,8 @@ class InterventionController extends Controller
         $request->validate([
             'description_action' => 'required|string',
             'dateDebut' => 'required|date',
-            'dateFin' => 'nullable|date|after_or_equal:dateDebut',
-            'solution_photo' => 'nullable|image|max:2048',
+            'dateFin' => 'required|date|after_or_equal:dateDebut',
+            'solution_photo' => 'required|image|max:2048',
         ]);
 
         if ($request->hasFile('solution_photo')) {
@@ -324,49 +326,100 @@ class InterventionController extends Controller
             'categories' => $categories
         ]);
     }
+    // public function valider(Request $request, $id)
+    // {
+    //     $intervention = Intervention::findOrFail($id);
+    //     $intervention->validation_admin = true;
+    //     $intervention->resolution_status = 'fermee';
+    //     $intervention->save();
+
+    //     // Mettre à jour le signalement
+    //     $signalement = $intervention->signalement;
+    //     $signalement->statut = 'resolu';
+    //     $signalement->save();
+    //     // $intervention->signalement->statut = 'resolu';
+    //     // $intervention->signalement->save();
+
+    //     // Notification pour l’agent
+    //     Notification::create([
+    //         'user_id' => $intervention->user_id,  // l’agent assigné
+    //         'type' => 'validation_intervention',
+    //         'titre' => 'Intervention validée',
+    //         'message' => 'L’intervention sur le signalement "' . $signalement->description . '" a été validée par l’administrateur.',
+    //         'lien' => route('mon.historique', $intervention->id),
+    //         'reference_id' => $signalement->id,
+    //         'reference_type' => 'Signalement',
+    //         'notifiable_id' => $signalement->id,
+    //         'notifiable_type' => 'Signalement',
+    //     ]);
+
+    //     // Notification pour le citoyen (user)
+    //     Notification::create([
+    //         'user_id' => $signalement->user_id,  // le citoyen
+    //         'type' => 'signalement_resolu',
+    //         'titre' => 'Signalement résolu',
+    //         'message' => 'Votre signalement "' . $signalement->description . '" a été résolu merci a voter confiance.',
+    //         'lien' => route('messignalements.auth', $signalement->id),
+    //         'reference_id' => $signalement->id,
+    //         'reference_type' => 'Signalement',
+    //         'notifiable_id' => $signalement->id,
+    //         'notifiable_type' => 'Signalement',
+    //     ]);
+
+
+    //     return back()->with('success', 'Intervention validée');
+    // }
+
+
     public function valider(Request $request, $id)
     {
-        $intervention = Intervention::findOrFail($id);
-        $intervention->validation_admin = true;
-        $intervention->resolution_status = 'fermee';
-        $intervention->save();
-
-        // Mettre à jour le signalement
-        $signalement = $intervention->signalement;
-        $signalement->statut = 'resolu';
-        $signalement->save();
-        // $intervention->signalement->statut = 'resolu';
-        // $intervention->signalement->save();
-
-        // Notification pour l’agent
-        Notification::create([
-            'user_id' => $intervention->user_id,  // l’agent assigné
-            'type' => 'validation_intervention',
-            'titre' => 'Intervention validée',
-            'message' => 'L’intervention sur le signalement "' . $signalement->description . '" a été validée par l’administrateur.',
-            'lien' => route('mon.historique', $intervention->id),
-            'reference_id' => $signalement->id,
-            'reference_type' => 'Signalement',
-            'notifiable_id' => $signalement->id,
-            'notifiable_type' => 'Signalement',
-        ]);
-
-        // Notification pour le citoyen (user)
-        Notification::create([
-            'user_id' => $signalement->user_id,  // le citoyen
-            'type' => 'signalement_resolu',
-            'titre' => 'Signalement résolu',
-            'message' => 'Votre signalement "' . $signalement->description . '" a été résolu merci a voter confiance.',
-            'lien' => route('messignalements.auth', $signalement->id),
-            'reference_id' => $signalement->id,
-            'reference_type' => 'Signalement',
-            'notifiable_id' => $signalement->id,
-            'notifiable_type' => 'Signalement',
-        ]);
-
-
-        return back()->with('success', 'Intervention validée');
+        DB::beginTransaction();
+    
+        try {
+            $intervention = Intervention::findOrFail($id);
+            $intervention->validation_admin = true;
+            $intervention->resolution_status = 'fermee';
+            $intervention->save();
+    
+           
+            $signalement = $intervention->signalement;
+            $signalement->statut = 'resolu';
+            $signalement->save();
+    
+           
+            Notification::create([
+                'user_id' => $intervention->user_id,
+                'type' => 'validation_intervention',
+                'titre' => 'Intervention validée',
+                'message' => 'L’intervention sur le signalement "' . $signalement->description . '" a été validée par l’administrateur.',
+                'lien' => route('mon.historique', $intervention->id),
+                'reference_id' => $signalement->id,
+                'reference_type' => 'Signalement',
+                'notifiable_id' => $signalement->id,
+                'notifiable_type' => 'Signalement',
+            ]);
+    
+            
+            Notification::create([
+                'user_id' => $signalement->user_id,
+                'type' => 'signalement_resolu',
+                'titre' => 'Signalement résolu',
+                'message' => 'Votre signalement "' . $signalement->description . '" a été résolu. Merci pour votre confiance.',
+                'lien' => route('messignalements.auth', $signalement->id),
+                'reference_id' => $signalement->id,
+                'reference_type' => 'Signalement',
+                'notifiable_id' => $signalement->id,
+                'notifiable_type' => 'Signalement',
+            ]);
+    
+            DB::commit();
+            return back()->with('success', 'Intervention validée avec succès.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Erreur lors de la validation : ' . $e->getMessage());
+        }
     }
+    
 
     public function rejeter(Request $request, $id)
     {

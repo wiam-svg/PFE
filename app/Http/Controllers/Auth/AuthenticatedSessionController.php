@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
     //     return redirect()->intended(route('admin.dashboard'));
     // }
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
 {
     $request->authenticate();
     $request->session()->regenerate();
@@ -44,9 +44,9 @@ class AuthenticatedSessionController extends Controller
     } elseif ($user->role === 'agent_municipal') {
         return redirect()->intended(route('agent.dashboard'));
     } else {
-        // Par défaut, on renvoie à une page générale ou d'erreur
         return redirect()->intended(route('signalements.index'));
     }
+
 }
 
 

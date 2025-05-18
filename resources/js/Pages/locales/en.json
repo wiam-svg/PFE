@@ -1,0 +1,862 @@
+{
+  "login": {
+    "title": "Login",
+    "subtitle": "Enter your credentials to access your account",
+    "email": "Email",
+    "password": "Password",
+    "forgot": "Forgot password?",
+    "remember": "Remember me",
+    "submit": "Login",
+    "submitting": "Logging in...",
+    "no_account": "Don't have an account?",
+    "register": "Register",
+    "or_continue": "Or continue with"
+  },
+  "app": {
+    "title": "RepareBladi - Citizen Reporting Platform in Morocco",
+    "name": "RepareBladi"
+  },
+  "header": {
+    "home": "Home",
+    "reports": "Reports",
+    "map": "Map",
+    "about": "About",
+    "login": "Log in",
+    "report_problem": "Report an issue"
+  },
+  "hero": {
+    "title": "Let's improve Morocco together",
+    "description": "RepareBladi is a platform that allows citizens to report infrastructure and public service issues to accelerate their resolution.",
+    "create_account": "Create account",
+    "how_it_works": "How it works"
+  },
+  "how_it_works": {
+    "title": "How it works",
+    "steps": {
+      "report": {
+        "title": "Report",
+        "description": "Take a photo of the issue (pothole, broken streetlight, etc.) and submit it via the app."
+      },
+      "locate": {
+        "title": "Locate",
+        "description": "Our system automatically geolocates the issue and categorizes it for the relevant services."
+      },
+      "process": {
+        "title": "Process",
+        "description": "The competent authorities receive the report and plan the necessary interventions."
+      },
+      "resolve": {
+        "title": "Resolve",
+        "description": "Track the resolution progress and receive a notification once the issue is fixed."
+      }
+    }
+  },
+  "stats": {
+    "title": "Our impact in Morocco",
+    "subtitle": "Thanks to collaboration between citizens and authorities, we're improving quality of life for all Moroccans",
+    "reported": "Issues reported",
+    "resolved": "Issues resolved",
+    "users": "Active users",
+    "avg_time": "Average resolution time"
+  },
+  "testimonials": {
+    "title": "What our users say"
+  },
+  "cta": {
+    "title": "Together, let's build a better Morocco for everyone",
+    "description": "Join our community of engaged citizens and actively participate in improving our country.",
+    "button": "Create a free account"
+  },
+  "footer": {
+    "description": "A citizen initiative to improve our urban environment and quality of life in Morocco.",
+    "quick_links": "Quick links",
+    "contact": "Contact",
+    "newsletter": {
+      "title": "Stay informed",
+      "description": "Subscribe to our newsletter to follow our updates",
+      "placeholder": "Your email",
+      "button": "Subscribe"
+    },
+    "copyright": "© {{year}} RepareBladi. All rights reserved."
+  },
+  "register": {
+    "title": "Create an account",
+    "subtitle": "Join our community in a few simple steps",
+    "steps": {
+      "personal_info": "Personal Information",
+      "profile_type": "Profile Type",
+      "finalization": "Finalization"
+    },
+    "form": {
+      "personal_info": {
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "age": "Age",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "city": "City",
+        "postal_code": "Postal Code"
+      },
+      "account_type": "Account Type",
+      "account_types": {
+        "business": "Business",
+        "citizen": "Citizen",
+        "municipal_agent": "Municipal Agent",
+        "student": "Student"
+      },
+      "business_info": {
+        "title": "Business Information",
+        "company_name": "Company Name",
+        "ice": "ICE"
+      },
+      "citizen_info": {
+        "title": "Citizen Information",
+        "cin": "National ID (CIN)"
+      },
+      "agent_info": {
+        "title": "Agent Information",
+        "employee_id": "Employee ID"
+      },
+      "student_info": {
+        "title": "Student Information",
+        "student_id": "Student ID (CNE)"
+      },
+      "password": {
+        "password": "Password",
+        "confirm_password": "Confirm Password"
+      },
+      "summary": {
+        "title": "Profile Summary",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "type": "Account Type"
+      },
+      "terms": "I accept the <1>terms and conditions</1>",
+      "buttons": {
+        "back": "Back",
+        "continue": "Continue",
+        "create_account": "Create My Account",
+        "processing": "Processing..."
+      }
+    }
+  },
+  "navbar": {
+    "logo": "RepareBladi",
+    "admin_subtitle": "| Administration",
+    "agent_subtitle": "| Municipal Agent",
+    "search_placeholder": "Search...",
+    "links": {
+      "map": "Map",
+      "home": "Home",
+      "reports": "Reports",
+      "my_reports": "My Reports",
+      "all_reports": "All Reports",
+      "about": "About",
+      "new_report": "New"
+    },
+    "user": {
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Logout",
+      "admin_greeting": "Admin: {{name}}",
+      "agent_greeting": "Agent: {{name}} | Area: {{zone}}",
+      "user_greeting": "{{name}}"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "unread": "{{count}} unread"
+    }
+  },
+  "agent_sidebar": {
+    "title": "Municipal Agent",
+    "menu": {
+      "dashboard": "Dashboard",
+      "interventions": "Interventions",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "rejected": "Rejected",
+      "history": "History",
+      "notifications": "Notifications",
+      "profile": "Profile",
+      "view_map": "View Map",
+      "logout": "Logout"
+    }
+  },
+  "agent_dashboard": {
+    "title": "Dashboard",
+    "stats": {
+      "assigned": {
+        "title": "Assigned",
+        "subtitle": "{{pending}} pending, {{inProgress}} in progress"
+      },
+      "this_week": {
+        "title": "This week",
+        "subtitle": "since last week"
+      },
+      "resolved": {
+        "title": "Resolved",
+        "subtitle": "In {{year}}"
+      }
+    },
+    "charts": {
+      "weekly_activity": "Weekly activity",
+      "status_distribution": "Reports status",
+      "assigned_reports": "Assigned reports",
+      "reports_count": "{{count}} reports",
+      "quantity": "Quantity"
+    }
+  },
+  "agent_signalements": {
+    "title": "My Assigned Reports",
+    "search_placeholder": "Search by title or description...",
+    "filters": {
+      "all_categories": "All categories",
+      "sort": {
+        "new_to_old": "Newest → Oldest",
+        "old_to_new": "Oldest → Newest"
+      }
+    },
+    "status": {
+      "completed": "Completed",
+      "pending": "Pending"
+    },
+    "info_bar": "{{count}} report(s) match your search.",
+    "no_results": "No reports found.",
+    "buttons": {
+      "details": "Details",
+      "mark_completed": "Mark as completed",
+      "close": "Close"
+    },
+    "details_modal": {
+      "title": "Report Details",
+      "created_at": "Created at: {{date}}"
+    },
+    "labels": {
+      "address": "Address",
+      "category": "Category"
+    }
+  },
+  "signalement_details": {
+    "title": "📌 Report Details",
+    "fields": {
+      "title": "Title",
+      "category": "Category",
+      "description": "Description",
+      "address": "Address",
+      "status": "Status",
+      "photo": "Report Photo",
+      "not_specified": "Not specified"
+    },
+    "user_section": {
+      "title": "👤 User Information",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "not_available": "N/A"
+    }
+  },
+  "EditIntervention": {
+    "title": "Mark as completed",
+    "actionDescription": "Action description",
+    "describeAction": "Describe the action taken",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "photo": "Photo",
+    "preview": "Preview",
+    "addPhoto": "Click to add a photo",
+    "save": "Save",
+    "cancel": "Cancel and go back"
+  },
+  "InterventionTerminee": {
+    "title": "Completed Interventions",
+    "subtitle": "List of completed and archived interventions",
+    "searchPlaceholder": "Search by title, description or category...",
+    "filter": "Filter",
+    "status": "Status",
+    "titlee": "Title",
+    "category": "Category",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "priority": "Priority",
+    "actions": "Actions",
+    "totalInterventions": "Total interventions",
+    "highPriority": "High priority",
+    "mediumPriority": "Medium priority",
+    "thisMonth": "This month",
+    "noInterventionsTitle": "No completed interventions",
+    "noInterventionsSubtitle": "Completed interventions will appear here once finished.",
+    "high": "High",
+    "medium": "Medium",
+    "reset": "Reset",
+    "edit": "Edit",
+    "viewDetails": "View details"
+  },
+  "DetailIntervention": {
+    "title": "Intervention vs Report Details",
+    "editButton": "Edit Your Intervention",
+    "backButton": "Back to interventions",
+    "interventionTitle": "Intervention",
+    "actionDescription": "Action description",
+    "solutionStatus": "Solution Status",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "interventionPhoto": "Intervention photo",
+    "interventionPhotoAlt": "Intervention proof",
+    "reportTitle": "Report",
+    "reportTitleLabel": "Title",
+    "description": "Description",
+    "category": "Category",
+    "status": "Status",
+    "date": "Date",
+    "reportPhoto": "Report photo",
+    "reportPhotoAlt": "Report photo",
+    "zoomedImageAlt": "Zoomed image"
+  },
+  "InterventionsRejetes": {
+    "title": "Rejected Interventions",
+    "subtitle": "Manage interventions that have been rejected",
+    "manage": "Manage rejected interventions",
+    "filters": "Filters",
+    "searchPlaceholder": "Search by title, description...",
+    "searchPlaceholderDesktop": "Search by title, description or category...",
+    "sortBy": "Sort by",
+    "priority": "Priority",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "status": "Status",
+    "reset": "Reset",
+    "matchingInterventions": "{{count}} intervention(s) matching \"{{searchTerm}}\"",
+    "matchingInterventionsDesktop": "{{count}} intervention(s) matching \"{{searchTerm}}\"",
+    "noRejectedInterventions": "No rejected interventions",
+    "noRejectedFound": "No rejected interventions found",
+    "willAppearHere": "Rejected interventions will appear here",
+    "high": "High",
+    "medium": "Medium",
+    "start": "Start",
+    "end": "End",
+    "edit": "Edit",
+    "details": "Details",
+    "totalRejected": "Total: {{count}} rejected interventions",
+    "totalRejectedDesktop": "Total: {{count}} rejected interventions",
+    "reportTitle": "Report Title",
+    "category": "Category",
+    "actions": "Actions"
+  },
+  "InterventionDetailPage": {
+    "title": "Intervention Details",
+    "back": "Back",
+    "backToInterventions": "Back to interventions",
+    "urgent": "Urgent",
+    "medium": "Medium",
+    "start": "Start",
+    "end": "End",
+    "report": "Report",
+    "adminComment": "Admin comment",
+    "noComment": "No comment for this intervention.",
+    "reporterContact": "Reporter contact",
+    "contact": "Contact",
+    "generalInfo": "General information",
+    "location": "Location",
+    "period": "Period",
+    "assignedAgent": "Assigned agent",
+    "relatedReport": "Related report",
+    "identity": "Identity",
+    "phone": "Phone",
+    "email": "Email"
+  },
+  "signalement": {
+    "back_to_interventions": "Back to interventions",
+    "votes": "votes",
+    "comments": "Comments",
+    "no_comments": "No comments for this report",
+    "report_details": "Report Details"
+  },
+  "historique": {
+    "title": "Intervention History",
+    "no_interventions": "No interventions in history.",
+    "solution_photo_alt": "Solution photo",
+    "description": "Description",
+    "start_date": "Start",
+    "end_date": "End",
+    "intervention_date": "Intervention date",
+    "intervention": "Intervention",
+    "report": "Report",
+    "pdf_button": "PDF",
+    "download_pdf": "Download PDF",
+    "information": "Information",
+    "details_status": "Details and status"
+  },
+  "notifications_agent": {
+    "titre": "Notifications",
+    "no_notifications": "No notifications at the moment.",
+    "view_report": "View the report"
+  },
+  "notifications": {
+    "title": "My Notifications",
+    "none": "No notifications.",
+    "unread": "{{count}} unread",
+    "mark_as_read": "Mark as read",
+    "delete": "Delete",
+    "view_link": "View link",
+    "dot": "●"
+  },
+  "profile": {
+    "title": "Personal Information",
+    "description": "Update your personal information and email address.",
+    "fields": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "city": "City"
+    },
+    "email_not_verified": {
+      "message": "Your email address is not verified.",
+      "resend_link": "Click here to resend the verification email."
+    },
+    "verification_link_sent": "A new verification link has been sent.",
+    "save_changes": "Save changes",
+    "changes_saved": "Changes saved"
+  },
+  "password": {
+    "title": "Update Password",
+    "description": "Ensure your account is using a long, random password to stay secure.",
+    "fields": {
+      "current_password": "Current Password",
+      "new_password": "New Password",
+      "confirm_password": "Confirm Password"
+    },
+    "save_button": "Save",
+    "saved_message": "Saved"
+  },
+  "account_deletion": {
+    "title": "Delete Account",
+    "description": "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.",
+    "delete_button": "Delete Account",
+    "modal": {
+      "title": "Are you sure you want to delete your account?",
+      "description": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+      "password_placeholder": "Password",
+      "cancel_button": "Cancel",
+      "confirm_button": "Delete Account"
+    }
+  },
+  "reports": {
+    "title": "Reports",
+    "filters": {
+      "title": "Filters",
+      "category": {
+        "label": "Category",
+        "all": "All categories"
+      },
+      "city": {
+        "label": "City",
+        "all": "All cities"
+      },
+      "reset": "Reset filters"
+    },
+    "results": {
+      "count": "{count} report(s) found",
+      "none": "No reports match your criteria."
+    },
+    "list": {
+      "title": "Reports list",
+      "uncategorized": "Uncategorized"
+    }
+  },
+  "reports1": {
+    "results": {
+      "count": "{{count}} report(s) displayed on the map",
+      "none": "No reports match your criteria."
+    },
+    "fields": {
+      "category": "Category",
+      "city": "City"
+    }
+  },
+  "admin_dashboard": {
+    "titre": "Admin Dashboard",
+    "export_pdf": "Export PDF",
+    "since_last_month": "since last month",
+    "total_reports": "Total reports",
+    "active_users": "Active users",
+    "resolution_rate": "Resolution rate",
+    "reports_evolution": "Reports evolution",
+    "reports_by_category": "Reports by category",
+    "reports": "Reports",
+    "number": "Number",
+    "pdf_error": "PDF export error",
+    "reports_management": "Reports Management",
+    "pending": "pending",
+    "view_assignments": "View Assignments",
+    "search_placeholder": "Search by title or city...",
+    "all_cities": "All cities",
+    "all_categories": "All categories",
+    "title": "Title",
+    "category": "Category",
+    "status": "Status",
+    "actions": "Actions",
+    "assign": "Assign",
+    "assign_agent": "Assign agent",
+    "no_reports_found": "No reports match your criteria",
+    "view_details": "View details",
+    "delete": "Delete",
+    "select_agent_for": "Select agent for report",
+    "missions": "missions",
+    "assign_success": "Agent assigned successfully!",
+    "assign_error": "Error during assignment.",
+    "delete_confirm": "Are you sure you want to delete this report?",
+    "delete_success": "Report deleted successfully!",
+    "delete_error": "Error during deletion.",
+    "report_details": "Report Details",
+    "report_image": "Report image",
+    "not_specified": "Not specified",
+    "category1": "Category",
+    "comments": "Comments",
+    "no_comments": "No comments for this report.",
+    "additional_info": "Additional Information",
+    "name": "Name",
+    "phone": "Phone",
+    "age": "Age",
+    "email": "Email",
+    "city": "City",
+    "add_details_hint": "Add here details like follow-up steps, interveners, etc.",
+    "status_pending": "Pending",
+    "status_in_progress": "In Progress",
+    "status_resolved": "Resolved",
+    "status_rejected": "Rejected",
+    "days_ago": "{{count}} days ago"
+  },
+  "admin_sidebar": {
+    "admin_panel": "Administration",
+    "dashboard": "Dashboard",
+    "categories": "Categories",
+    "create_category": "Create category",
+    "category_list": "Category list",
+    "users": "Users",
+    "reports": "Reports",
+    "unassigned": "Unassigned",
+    "assignments": "Assignments",
+    "completed": "Completed",
+    "view_map": "View map",
+    "back_to_site": "Back to site",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "archives": "Archives",
+    "logout": "Logout"
+  },
+  "category_table": {
+    "title": "Category Management",
+    "headers": {
+      "name": "Name",
+      "description": "Description",
+      "actions": "Actions"
+    },
+    "no_categories": "No categories found",
+    "delete_confirm": "Are you sure you want to delete this category?",
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "edit_form": {
+      "title": "Edit Category",
+      "fields": {
+        "name": "Name",
+        "description": "Description"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "save": "Save"
+      }
+    },
+    "add_button": "Add Category"
+  },
+  "categories": {
+    "createCategory": "Create a Category",
+    "name": "Name",
+    "description": "Description",
+    "create": "Create"
+  },
+  "listuser": {
+    "title": "User Management",
+    "searchPlaceholder": "Search by name or email...",
+    "filterCity": "Filter by city",
+    "filterRole": "Filter by role",
+    "user": "User",
+    "type": "Type",
+    "role": "Role",
+    "actions": "Actions",
+    "validate": "Validate",
+    "invalidate": "Invalidate",
+    "validating": "Processing...",
+    "deleteConfirm": "Delete this user?",
+    "delete": "Delete",
+    "userValidated": "User validated/invalidated!",
+    "userDeleted": "User deleted",
+    "validationError": "Error during validation.",
+    "deletionError": "Error during deletion."
+  },
+  "editAssignement": {
+    "title": "Edit Assignement",
+    "agentLabel": "Agent:",
+    "chooseAgent": "-- Choose an agent --",
+    "reportLabel": "Report:",
+    "chooseReport": "-- Choose a report --",
+    "submit": "Update",
+    "success": "Assignment updated successfully",
+    "error": "Error updating assignment"
+  },
+  "Assignements": {
+    "title": "Assignments",
+    "active_count": "{count} active",
+    "search_placeholder": "Search by title or city...",
+    "all_cities": "All cities",
+    "all_categories": "All categories",
+    "table_headers": {
+      "id": "ID",
+      "report": "Report",
+      "agent": "Agent",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "completed": "Completed",
+      "pending": "In progress"
+    },
+    "buttons": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you want to delete this assignment?"
+    },
+    "no_results": "No results found",
+    "mobile_view": {
+      "report_id": "Report ID",
+      "assigned_to": "Assigned to"
+    }
+  }
+  ,
+    "createsignalements": {
+      "head_title": "Create a report",
+      "header": {
+        "title": "Create a report",
+        "subtitle": "Use this form to report an issue"
+      },
+      "form": {
+        "title": {
+          "label": "Title",
+          "placeholder": "Report title"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Detailed description"
+        },
+        "image": {
+          "label": "Photo",
+          "upload_text": "Click to add a photo",
+          "preview_alt": "Image preview"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "City"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Exact address"
+        },
+        "category": {
+          "label": "Category",
+          "default_option": "-- Choose a category --"
+        },
+        "submit": {
+          "label": "Create report",
+          "processing": "Submitting..."
+        }
+      }
+    },
+    
+      "mesSignalements": {
+        "header": {
+          "title": "My Reports",
+          "subtitle": "Track the status and progress of your reports"
+        },
+        "stats": {
+          "total": {
+            "label": "Total reports"
+          },
+          "resolved": {
+            "label": "Resolved reports"
+          },
+          "pending": {
+            "label": "Pending/In progress"
+          }
+        },
+        "filters": {
+          "title": "Filter reports",
+          "status": {
+            "label": "Status",
+            "all": "All statuses"
+          },
+          "category": {
+            "label": "Category",
+            "all": "All categories"
+          }
+        },
+        "status": {
+          "en_attente": "Pending",
+          "validé": "Validated",
+          "en_cours": "In progress",
+          "rejeté": "Rejected",
+          "résolu": "Resolved"
+        },
+        "details": {
+          "description": "Description",
+          "metadata": "Details",
+          "category": "Category",
+          "created_at": "Created at",
+          "engagement": "Engagement",
+          "votes": "Votes",
+          "comments": "Comments"
+        },
+        "comments": {
+          "title": "Comments",
+          "empty": "No comments yet"
+        },
+        "empty": {
+          "title": "No reports found",
+          "filtered": "No reports match the selected filters.",
+          "default": "You haven't created any reports yet."
+        },
+        "actions": {
+          "edit": "Edit",
+          "delete": "Delete",
+          "reset_filters": "Reset filters",
+          "create": "Create a report"
+        }
+      }
+    ,
+    
+      "editsignalement": {
+        "head": {
+          "title": "Edit Report"
+        },
+        "header": {
+          "title": "Edit Report",
+          "subtitle": "Use this form to update the report information"
+        },
+        "form": {
+          "title": {
+            "label": "Title",
+            "placeholder": "Report title"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Detailed description"
+          },
+          "image": {
+            "label": "Photo",
+            "upload_text": "Click to add a photo",
+            "preview_alt": "Image preview"
+          },
+          "city": {
+            "label": "City",
+            "placeholder": "City"
+          },
+          "address": {
+            "label": "Address",
+            "placeholder": "Exact address"
+          },
+          "category": {
+            "label": "Category",
+            "default_option": "-- Choose a category --"
+          },
+          "status": {
+            "label": "Status"
+          }
+        },
+        "actions": {
+          "save": "Save changes",
+          "processing": "Saving...",
+          "cancel": "Cancel"
+        }
+      },
+      
+        "signalementlist": {
+          "search": {
+            "placeholder": "Search by title, description or address..."
+          },
+          "filters": {
+            "button": "Filters",
+            "reset": "Reset",
+            "status": {
+              "label": "Status",
+              "all": "All"
+            },
+            "city": {
+              "label": "City",
+              "all": "All"
+            },
+            "urgent": {
+              "label": "Urgent only"
+            }
+          },
+          "status": {
+            "en_attente": "Pending",
+            "en_cours": "In progress",
+            "resolu": "Resolved",
+            "rejtee": "Rejected"
+          },
+          "results": {
+            "count": "{count} report{count, plural, =1 {} other {s}} found",
+            "search": "Search",
+            "status": "Status",
+            "urgent": "Urgent only",
+            "date": "Date"
+          },
+          "empty": {
+            "title": "No reports found",
+            "message": "Try adjusting your search or filter criteria.",
+            "reset_button": "Reset all filters"
+          }
+        },
+        
+          "signalementitem": {
+            "image_alt": "Report",
+            "zoom": "Zoom",
+            "urgent": "URGENT",
+            "status": {
+              "en_attente": "Pending",
+              "en_cours": "In progress",
+              "résolu": "Resolved",
+              "refusé": "Rejected"
+            },
+            "actions": {
+              "edit": "Edit",
+              "delete": "Delete",
+              "mark_urgent": "Mark as Urgent",
+              "cancel_urgent": "Cancel Urgent",
+              "urgent": "Urgent"
+            },
+            "delete_confirm": "Are you sure you want to delete this report?",
+            "comments": {
+              "title": "Comments",
+              "hide": "Hide",
+              "show": "Comments ({count})",
+              "empty": "No comments",
+              "unknown_user": "Unknown user",
+              "edited": "Edited",
+              "save": "Save",
+              "cancel": "Cancel",
+              "edit": "Edit",
+              "delete": "Delete",
+              "delete_confirm": "Delete this comment?",
+              "add_placeholder": "Add a comment...",
+              "comment": "Comment"
+            }
+          }
+        
+      
+    
+  
+}
